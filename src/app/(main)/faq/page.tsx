@@ -6,7 +6,9 @@ import {
 } from '@/components/ui/accordion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Terminal } from 'lucide-react';
+import { Terminal, Handshake, Eye, Briefcase } from 'lucide-react';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 
 const ownerFaqs = [
@@ -195,6 +197,20 @@ export default function FaqPage() {
                 </Alert>
             </section>
         </div>
+
+         {/* CTA Section */}
+        <section className="text-center py-16 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-lg">
+          <h2 className="text-3xl font-bold mb-2">It’s not just about renting space—it’s about growing together.</h2>
+          <p className="text-lg mb-8">Join the RackUp community today.</p>
+          <div className="flex justify-center gap-4">
+            <Button size="lg" variant="secondary" asChild>
+              <Link href="/list-rack">List Your Rack</Link>
+            </Button>
+            <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-primary" asChild>
+              <Link href="/explore">Find a Rack</Link>
+            </Button>
+          </div>
+        </section>
     </div>
   );
 }
