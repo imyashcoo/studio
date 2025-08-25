@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Search } from 'lucide-react';
+import React from 'react';
 
 function ExplorePageInternal() {
   const searchParams = useSearchParams();
