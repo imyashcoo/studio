@@ -1,7 +1,7 @@
-<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="40" height="40" rx="8" fill="hsl(var(--primary))"/>
-<path d="M14.5 13.75H25.5V16.25H14.5V13.75Z" fill="hsl(var(--primary-foreground))"/>
-<path d="M14.5 23.75H25.5V26.25H14.5V23.75Z" fill="hsl(var(--primary-foreground))"/>
-<path d="M13 13C13 12.4477 13.4477 12 14 12H17.5V18H13V13Z" fill="hsl(var(--primary-foreground))"/>
-<path d="M27 28C27 28.5523 26.5523 29 26 29H22.5V22H27V28Z" fill="hsl(var(--primary-foreground))"/>
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="100" fill="#212121"/>
+<path d="M25 20C25 17.2386 27.2386 15 30 15V15C32.7614 15 35 17.2386 35 20V80C35 82.7614 32.7614 85 30 85V85C27.2386 85 25 82.7614 25 80V20Z" fill="white"/>
+<path d="M65 20C65 17.2386 67.2386 15 70 15V15C72.7614 15 75 17.2386 75 20V80C75 82.7614 72.7614 85 70 85V85C67.2386 85 65 82.7614 65 80V20Z" fill="white"/>
+<path d="M20 35C17.2386 35 15 37.2386 15 40V40C15 42.7614 17.2386 45 20 45H80C82.7614 45 85 42.7614 85 40V40C85 37.2386 82.7614 35 80 35H20Z" fill="white"/>
+<path d="M20 55C17.2386 55 15 57.2386 15 60V60C15 62.7614 17.2386 65 20 65H80C82.7614 65 85 62.7614 85 60V60C85 57.2386 82.7614 55 80 55H20Z" fill="white"/>
 </svg>

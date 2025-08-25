@@ -44,7 +44,7 @@ export default function DashboardPage() {
             <CardHeader>
               <CardTitle>My Listings</CardTitle>
               <CardDescription>
-                A list of all racks you have listed on ShelfShare.
+                A list of all racks you have listed on RackUp.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -63,8 +63,13 @@ export default function DashboardPage() {
                       <TableCell className="font-medium">{rack.title}</TableCell>
                       <TableCell>
                         <Badge
-                          variant={rack.status === 'Available' ? 'default' : 'destructive'}
-                          className={cn(rack.status === 'Available' && 'bg-green-500 hover:bg-green-600')}
+                           variant={rack.status === 'Available' ? 'default' : 'destructive'}
+                           className={cn(
+                             rack.status === 'Available'
+                               ? 'bg-green-500 hover:bg-green-600'
+                               : 'bg-red-500 hover:bg-red-600',
+                             'text-white'
+                           )}
                         >
                           {rack.status}
                         </Badge>

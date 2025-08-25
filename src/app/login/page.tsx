@@ -13,8 +13,8 @@ export default function LoginPage() {
     <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4">
        <div className="absolute top-8 left-8">
          <Link href="/" className="flex items-center gap-2">
-           <Image src="/logo.svg" alt="ShelfShare Logo" width={30} height={30} />
-           <span className="font-semibold">ShelfShare</span>
+           <Image src="/logo.svg" alt="RackUp Logo" width={30} height={30} />
+           <span className="font-semibold">RackUp</span>
          </Link>
       </div>
       <Card className="w-full max-w-md">
@@ -44,7 +44,7 @@ export default function LoginPage() {
               <div className="space-y-4 pt-4">
                  <div className="space-y-2">
                   <Label htmlFor="mobile">Mobile Number</Label>
-                  <Input id="mobile" type="tel" placeholder="+1 234 567 890" required />
+                  <Input id="mobile" type="tel" placeholder="+91 12345 67890" required />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="otp">One-Time Password (OTP)</Label>

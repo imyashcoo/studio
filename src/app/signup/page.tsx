@@ -10,14 +10,14 @@ export default function SignupPage() {
     <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4">
        <div className="absolute top-8 left-8">
          <Link href="/" className="flex items-center gap-2">
-           <Image src="/logo.svg" alt="ShelfShare Logo" width={30} height={30} />
-           <span className="font-semibold">ShelfShare</span>
+           <Image src="/logo.svg" alt="RackUp Logo" width={30} height={30} />
+           <span className="font-semibold">RackUp</span>
          </Link>
       </div>
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl">Create an Account</CardTitle>
-          <CardDescription>Join ShelfShare to start listing or renting racks.</CardDescription>
+          <CardDescription>Join RackUp to start listing or renting racks.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
@@ -30,7 +30,7 @@ export default function SignupPage() {
           </div>
            <div className="space-y-2">
             <Label htmlFor="mobile">Mobile Number</Label>
-            <Input id="mobile" type="tel" placeholder="+1 234 567 890" required />
+            <Input id="mobile" type="tel" placeholder="+91 12345 67890" required />
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>

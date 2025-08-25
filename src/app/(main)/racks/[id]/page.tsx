@@ -52,11 +52,14 @@ export default function RackDetailPage({ params }: { params: { id: string } }) {
         <div className="space-y-6">
           <div>
             <Badge
+              variant={rack.status === 'Available' ? 'default' : 'destructive'}
               className={cn(
                 'mb-2',
-                rack.status === 'Available' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                rack.status === 'Available'
+                  ? 'bg-green-500 hover:bg-green-600'
+                  : 'bg-red-500 hover:bg-red-600',
+                'text-white'
               )}
-              variant="outline"
             >
               {rack.status}
             </Badge>
