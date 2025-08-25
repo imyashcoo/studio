@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -10,11 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import Link from 'next/link';
-import { useToast } from '@/hooks/use-toast';
-import { Loader2 } from 'lucide-react';
 
 const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -43,36 +38,36 @@ const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-export default function LoginPage() {
-  const [mobile, setMobile] = useState('');
-  const [otp, setOtp] = useState('');
-  const [otpSent, setOtpSent] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const { toast } = useToast();
+const MicrosoftIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg 
+        {...props}
+        xmlns="http://www.w3.org/2000/svg" 
+        viewBox="0 0 48 48" 
+        width="24px"
+        height="24px"
+    >
+        <path fill="#f35325" d="M22,22H6V6h16V22z M22,42H6V26h16V42z M42,22H26V6h16V22z M42,42H26V26h16V42z"/>
+    </svg>
+);
 
-  const handleGetOtp = async () => {
-    if (!/^\d{10}$/.test(mobile)) {
-      toast({
-        title: 'Invalid Mobile Number',
-        description: 'Please enter a valid 10-digit mobile number.',
-        variant: 'destructive',
-      });
-      return;
-    }
-    setLoading(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setLoading(false);
-    setOtpSent(true);
-    toast({
-      title: 'OTP Sent',
-      description: 'An OTP has been sent to your mobile number.',
-    });
-  };
-  
-  const handleLogin = () => {
+const AppleIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg 
+        {...props}
+        xmlns="http://www.w3.org/2000/svg" 
+        viewBox="0 0 48 48" 
+        width="24px"
+        height="24px"
+    >
+        <path d="M36.5,27.9c-0.3,4.6-3.8,6.8-4.3,6.9c-0.5,0.1-1.1,0.2-2.1-0.1c-1.3-0.4-2.6-0.8-4.2-0.8s-2.8,0.4-4.1,0.8 c-1,0.3-1.6,0.2-2.1,0.1c-0.5-0.1-3.3-2-4-6.5c-0.6-3.8,0.6-7.5,2.4-9.9c1.6-2.2,3.9-3.6,6.4-3.6c0.8,0,2.5,0.6,4.1,0.6 c1.5,0,3.3-0.7,4.2-0.7c2.3,0,4.5,1.3,6.1,3.4C36.3,20.5,37.2,24.1,36.5,27.9z"/>
+        <path d="M31.4,14c1.2-1.4,1.8-3.3,1.6-5c-1.6,0.1-3.3,1-4.4,2.3c-1.1,1.2-1.9,3-1.7,4.8C28.5,16.2,30.3,15.3,31.4,14z"/>
+    </svg>
+);
+
+export default function LoginPage() {
+ 
+  const handleLogin = (provider: 'google' | 'microsoft' | 'apple') => {
     // TODO: Implement actual login logic
-    console.log("Logging in with", {mobile, otp})
+    console.log(`Logging in with ${provider}`)
   }
 
   return (
@@ -81,63 +76,24 @@ export default function LoginPage() {
         <CardHeader className="text-center">
           <CardTitle className="text-2xl">Welcome Back</CardTitle>
           <CardDescription>
-            Enter your mobile number to receive an OTP, or sign in with Google.
+            Sign in with your favorite provider to continue.
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <Button variant="outline" className="w-full">
+        <CardContent className="space-y-3">
+          <Button variant="outline" className="w-full" onClick={() => handleLogin('google')}>
             <GoogleIcon className="mr-2 h-5 w-5" />
             Continue with Google
           </Button>
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t" />
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">
-                Or continue with
-              </span>
-            </div>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="mobile">Mobile Number</Label>
-            <div className="flex gap-2">
-              <Input
-                id="mobile"
-                type="tel"
-                placeholder="12345 67890"
-                required
-                value={mobile}
-                onChange={(e) => setMobile(e.target.value)}
-                disabled={otpSent || loading}
-                maxLength={10}
-              />
-              {!otpSent && (
-                <Button onClick={handleGetOtp} disabled={mobile.length !== 10 || loading}>
-                  {loading ? <Loader2 className="animate-spin" /> : "Get OTP"}
-                </Button>
-              )}
-            </div>
-          </div>
-          {otpSent && (
-            <div className="space-y-2">
-              <Label htmlFor="otp">One-Time Password (OTP)</Label>
-              <Input 
-                id="otp" 
-                type="text" 
-                placeholder="Enter your OTP" 
-                required 
-                value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-                maxLength={6}
-              />
-            </div>
-          )}
+          <Button variant="outline" className="w-full" onClick={() => handleLogin('microsoft')}>
+            <MicrosoftIcon className="mr-2 h-5 w-5" />
+            Continue with Microsoft
+          </Button>
+          <Button variant="outline" className="w-full" onClick={() => handleLogin('apple')}>
+            <AppleIcon className="mr-2 h-5 w-5" />
+            Continue with Apple
+          </Button>
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
-          <Button className="w-full as-child" disabled={!otpSent || otp.length !== 6}>
-            <Link href="/explore" onClick={handleLogin}>Log In</Link>
-          </Button>
           <p className="text-center text-sm text-muted-foreground">
             Don&apos;t have an account?{' '}
             <Link
