@@ -16,6 +16,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
+import Link from 'next/link';
 
 const contactFormSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters long.'),
@@ -48,7 +49,7 @@ export default function ContactUsPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-12 md:py-20">
+    <div className="container mx-auto px-4 py-12 md:py-20 space-y-16">
       <Card className="max-w-2xl mx-auto">
         <CardHeader>
           <CardTitle className="text-3xl font-bold tracking-tight">Contact Us</CardTitle>
@@ -114,6 +115,20 @@ export default function ContactUsPage() {
           </Form>
         </CardContent>
       </Card>
+      
+       {/* CTA Section */}
+        <section className="text-center py-16 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-lg -mx-4">
+          <h2 className="text-3xl font-bold mb-2">It’s not just about renting space—it’s about growing together.</h2>
+          <p className="text-lg mb-8">Join the RackUp community today.</p>
+          <div className="flex justify-center gap-4">
+            <Button size="lg" variant="secondary" asChild>
+              <Link href="/list-rack">List Your Rack</Link>
+            </Button>
+            <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-primary" asChild>
+              <Link href="/explore">Find a Rack</Link>
+            </Button>
+          </div>
+        </section>
     </div>
   );
 }
