@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -25,7 +26,7 @@ export function Footer() {
                         <li><Link href="/contact" className="hover:text-primary">Contact Us</Link></li>
                         <li><Link href="/faq" className="hover:text-primary">FAQ</Link></li>
                         <li><Link href="/privacy-policy" className="hover:text-primary">Privacy Policy</Link></li>
-                         <li><Link href="#" className="hover:text-primary">Terms of Service</Link></li>
+                         <li><Link href="/terms-of-service" className="hover:text-primary">Terms of Service</Link></li>
                     </ul>
                 </div>
                 <div className="col-span-2 md:col-span-1">
