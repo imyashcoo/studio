@@ -32,7 +32,7 @@ export function Header() {
               {isLoggedIn && <Link href="/dashboard"><Button variant="ghost">Dashboard</Button></Link>}
           </div>
         <div className="flex items-center gap-2">
-            {isLoggedIn ? (
+            {isLoggedIn && user ? (
               <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="h-12 gap-2 px-2">
