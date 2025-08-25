@@ -37,13 +37,13 @@ export function Header() {
                   <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="h-12 gap-2 px-2">
                       <Avatar className="h-8 w-8">
-                      <AvatarImage src={user.photoURL || "https://placehold.co/100x100.png"} alt={user.displayName || "User Avatar"} data-ai-hint="user avatar" />
-                      <AvatarFallback>{user.displayName?.substring(0,2) || 'U'}</AvatarFallback>
+                      <AvatarImage src={user.avatarUrl || "https://placehold.co/100x100.png"} alt={user.name || "User Avatar"} data-ai-hint="user avatar" />
+                      <AvatarFallback>{user.name?.substring(0,2) || 'U'}</AvatarFallback>
                       </Avatar>
                   </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent side="bottom" align="end" className="w-56">
-                  <DropdownMenuLabel>{user.displayName || "My Account"}</DropdownMenuLabel>
+                  <DropdownMenuLabel>{user.name || "My Account"}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
                       <Link href="/dashboard">

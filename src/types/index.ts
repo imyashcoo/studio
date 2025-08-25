@@ -29,4 +29,5 @@ export type User = {
   whatsapp: string | null;
   businessName?: string;
   avatarUrl?: string | null;
+  password?: string;
 };

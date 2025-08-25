@@ -1,25 +1,15 @@
-
 'use client';
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { 
-  getAuth, 
-  onAuthStateChanged, 
-  User as FirebaseUser, 
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  updateProfile
-} from 'firebase/auth';
-import { auth } from './firebase';
 import { useRouter } from 'next/navigation';
 import type { User } from '@/types';
 
-// In a real app, you'd use Firestore or another DB
+// In a real app, you'd use a proper database.
 const mockUserDatabase: { [key: string]: User } = {};
+let mockUserIdCounter = 0;
 
 interface AuthContextType {
-  user: FirebaseUser | null;
+  user: User | null;
   loading: boolean;
   signup: (details: any) => Promise<void>;
   login: (identifier: string, password: string) => Promise<void>;
@@ -29,58 +19,62 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<FirebaseUser | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
+    // In a real app, you might check a token from localStorage
+    const loggedInUser = localStorage.getItem('loggedInUser');
+    if (loggedInUser) {
+      setUser(JSON.parse(loggedInUser));
+    }
+    setLoading(false);
   }, []);
 
   const signup = async (details: any) => {
     const { email, password, name, businessName, mobile, whatsapp } = details;
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     
-    if (userCredential.user) {
-      await updateProfile(userCredential.user, {
-        displayName: name,
-      });
-
-      // In a real app, you would save this to Firestore
-      mockUserDatabase[userCredential.user.uid] = {
-          uid: userCredential.user.uid,
-          email,
-          name,
-          businessName,
-          mobile,
-          whatsapp,
-      };
-
-      // Manually update the user state to reflect the new profile data
-      setUser(auth.currentUser);
+    // Check if user already exists
+    if (Object.values(mockUserDatabase).some(u => u.email === email || u.mobile === mobile)) {
+        throw new Error('User with this email or mobile number already exists.');
     }
+
+    const uid = `user-${mockUserIdCounter++}`;
+    const newUser: User = {
+        uid,
+        email,
+        name,
+        businessName,
+        mobile,
+        whatsapp,
+        // In a real app, you would hash the password
+        password, 
+        avatarUrl: `https://placehold.co/100x100.png?text=${name.substring(0,1)}`
+    };
+    mockUserDatabase[uid] = newUser;
+    console.log("New user signed up:", newUser);
+    console.log("DB state:", mockUserDatabase);
   };
 
   const login = async (identifier: string, password: string) => {
-    // This is a simplified login. A real app would need to look up
-    // the email associated with a mobile number from your database (e.g., Firestore).
-    // For this example, we'll assume the identifier is always an email.
-    await signInWithEmailAndPassword(auth, identifier, password);
+    const foundUser = Object.values(mockUserDatabase).find(
+      u => (u.email === identifier || u.mobile === identifier) && u.password === password
+    );
+
+    if (!foundUser) {
+      throw new Error('Invalid credentials or user not found.');
+    }
+    
+    setUser(foundUser);
+    localStorage.setItem('loggedInUser', JSON.stringify(foundUser));
     router.push('/dashboard');
   };
 
   const logout = async () => {
-    try {
-      await signOut(auth);
-      router.push('/login');
-    } catch (error) {
-        console.error("Error signing out", error)
-    }
+    setUser(null);
+    localStorage.removeItem('loggedInUser');
+    router.push('/login');
   };
 
   const value = {

@@ -1,11 +1,11 @@
 import type { Rack, User } from '@/types';
 
-export const mockUsers: User[] = [
+export const mockUsers: Omit<User, 'uid' | 'password'>[] = [
   {
     id: 'user-1',
     name: 'John Doe',
     email: 'john.doe@example.com',
-    phone: '123-456-7890',
+    mobile: '1234567890',
     businessName: 'JD Retail',
     avatarUrl: 'https://placehold.co/100x100.png',
   },
@@ -13,7 +13,7 @@ export const mockUsers: User[] = [
     id: 'user-2',
     name: 'Jane Smith',
     email: 'jane.smith@example.com',
-    phone: '098-765-4321',
+    mobile: '0987654321',
     avatarUrl: 'https://placehold.co/100x100.png',
   },
 ];
@@ -23,7 +23,12 @@ export const mockRacks: Rack[] = [
     id: 'rack-1',
     title: 'Prime Aisle End-Cap in High-Traffic Supermarket',
     description: 'Excellent visibility at the end of a busy aisle. Perfect for new product launches. Comes with optional branding panels. High footfall guaranteed.',
-    owner: mockUsers[0],
+    owner: {
+        id: 'user-1',
+        name: 'John Doe',
+        avatarUrl: 'https://placehold.co/100x100.png',
+        businessName: 'JD Retail'
+    },
     location: 'Downtown, Metro City',
     pincode: '110001',
     weeklyRent: 2500,
@@ -43,7 +48,11 @@ export const mockRacks: Rack[] = [
     id: 'rack-2',
     title: 'Boutique Front Window Shelf',
     description: 'Charming shelf space in the front window of a trendy boutique. Ideal for artisanal goods, jewelry, or accessories. Attracts fashion-conscious shoppers.',
-    owner: mockUsers[1],
+    owner: {
+        id: 'user-2',
+        name: 'Jane Smith',
+        avatarUrl: 'https://placehold.co/100x100.png'
+    },
     location: 'Arts District, Creative Town',
     pincode: '400050',
     weeklyRent: 1800,
@@ -59,7 +68,12 @@ export const mockRacks: Rack[] = [
     id: 'rack-3',
     title: 'Checkout Counter Display at Cafe',
     description: 'Compact display space right at the checkout counter. Perfect for impulse buys like snacks, drinks, or small gift items. Constant queue of customers.',
-    owner: mockUsers[0],
+    owner: {
+        id: 'user-1',
+        name: 'John Doe',
+        avatarUrl: 'https://placehold.co/100x100.png',
+        businessName: 'JD Retail'
+    },
     location: 'Central Park, Metro City',
     pincode: '110001',
     weeklyRent: 900,
@@ -75,7 +89,11 @@ export const mockRacks: Rack[] = [
     id: 'rack-4',
     title: 'Full Gondola in Electronics Store',
     description: 'A full gondola rack in a busy electronics hub. Suitable for gadgets, mobile accessories, or gaming merchandise. High-intent buyers.',
-    owner: mockUsers[1],
+    owner: {
+        id: 'user-2',
+        name: 'Jane Smith',
+        avatarUrl: 'https://placehold.co/100x100.png'
+    },
     location: 'Tech Hub, Silicon Valley',
     pincode: '560034',
     weeklyRent: 3500,
@@ -91,7 +109,12 @@ export const mockRacks: Rack[] = [
     id: 'rack-5',
     title: 'Shelf in Organic Food Mart',
     description: 'A dedicated shelf in a popular organic food store. Great for healthy snacks, supplements, or eco-friendly products. Targets health-conscious consumers.',
-    owner: mockUsers[0],
+    owner: {
+        id: 'user-1',
+        name: 'John Doe',
+        avatarUrl: 'https://placehold.co/100x100.png',
+        businessName: 'JD Retail'
+    },
     location: 'Greenway, Wellness City',
     pincode: '600028',
     weeklyRent: 1500,
@@ -107,7 +130,11 @@ export const mockRacks: Rack[] = [
     id: 'rack-6',
     title: 'Bookstore Entrance Display Stand',
     description: 'A standalone display stand near the entrance of a popular bookstore. Excellent for magazines, stationery, or author promotions.',
-    owner: mockUsers[1],
+    owner: {
+        id: 'user-2',
+        name: 'Jane Smith',
+        avatarUrl: 'https://placehold.co/100x100.png'
+    },
     location: 'University Area, Scholar Town',
     pincode: '400098',
     weeklyRent: 1200,

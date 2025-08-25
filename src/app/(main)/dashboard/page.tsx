@@ -26,21 +26,25 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { useAuth } from '@/lib/auth';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function DashboardPage() {
   const { user, loading } = useAuth();
   const router = useRouter();
 
-  if (loading) {
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push('/login');
+    }
+  }, [user, loading, router]);
+
+  if (loading || !user) {
     return <div>Loading...</div>
   }
-
-  if (!user) {
-    router.push('/login');
-    return null;
-  }
   
-  const userRacks = mockRacks.filter(rack => rack.owner.id === user.uid);
+  // This is mock data logic. In a real app, you would fetch this from your backend.
+  // const userRacks = mockRacks.filter(rack => rack.owner.id === user.uid);
+  const userRacks = mockRacks.slice(0, 2); // Mock
   const rentedRacks = [mockRacks[2]]; // Mock data for rented racks
 
   return (
@@ -143,7 +147,7 @@ export default function DashboardPage() {
             <CardContent className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="name">Full Name</Label>
-                <Input id="name" defaultValue={user.displayName || ''} />
+                <Input id="name" defaultValue={user.name || ''} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
@@ -151,11 +155,11 @@ export default function DashboardPage() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="phone">Phone Number</Label>
-                <Input id="phone" type="tel" defaultValue={user.phoneNumber || ''} />
+                <Input id="phone" type="tel" defaultValue={user.mobile || ''} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="business-name">Business Name (Optional)</Label>
-                <Input id="business-name" />
+                <Input id="business-name" defaultValue={user.businessName || ''}/>
               </div>
             </CardContent>
             <CardFooter>
