@@ -38,35 +38,10 @@ const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const MicrosoftIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg 
-        {...props}
-        xmlns="http://www.w3.org/2000/svg" 
-        viewBox="0 0 48 48" 
-        width="24px"
-        height="24px"
-    >
-        <path fill="#f35325" d="M22,22H6V6h16V22z M22,42H6V26h16V42z M42,22H26V6h16V22z M42,42H26V26h16V42z"/>
-    </svg>
-);
-
-const AppleIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg 
-        {...props}
-        xmlns="http://www.w3.org/2000/svg" 
-        viewBox="0 0 48 48" 
-        width="24px"
-        height="24px"
-    >
-        <path d="M36.5,27.9c-0.3,4.6-3.8,6.8-4.3,6.9c-0.5,0.1-1.1,0.2-2.1-0.1c-1.3-0.4-2.6-0.8-4.2-0.8s-2.8,0.4-4.1,0.8 c-1,0.3-1.6,0.2-2.1,0.1c-0.5-0.1-3.3-2-4-6.5c-0.6-3.8,0.6-7.5,2.4-9.9c1.6-2.2,3.9-3.6,6.4-3.6c0.8,0,2.5,0.6,4.1,0.6 c1.5,0,3.3-0.7,4.2-0.7c2.3,0,4.5,1.3,6.1,3.4C36.3,20.5,37.2,24.1,36.5,27.9z"/>
-        <path d="M31.4,14c1.2-1.4,1.8-3.3,1.6-5c-1.6,0.1-3.3,1-4.4,2.3c-1.1,1.2-1.9,3-1.7,4.8C28.5,16.2,30.3,15.3,31.4,14z"/>
-    </svg>
-);
-
 
 export default function SignupPage() {
 
-  const handleSignup = (provider: 'google' | 'microsoft' | 'apple') => {
+  const handleSignup = (provider: 'google') => {
      // TODO: Implement actual signup logic
     console.log(`Signing up with ${provider}`);
   }
@@ -84,14 +59,6 @@ export default function SignupPage() {
           <Button variant="outline" className="w-full" onClick={() => handleSignup('google')}>
             <GoogleIcon className="mr-2 h-5 w-5" />
             Continue with Google
-          </Button>
-          <Button variant="outline" className="w-full" onClick={() => handleSignup('microsoft')}>
-            <MicrosoftIcon className="mr-2 h-5 w-5" />
-            Continue with Microsoft
-          </Button>
-          <Button variant="outline" className="w-full" onClick={() => handleSignup('apple')}>
-            <AppleIcon className="mr-2 h-5 w-5" />
-            Continue with Apple
           </Button>
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
