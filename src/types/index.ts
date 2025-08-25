@@ -17,6 +17,7 @@ export type Rack = {
   weeklySales: number;
   photos: string[];
   status: 'Available' | 'Rented';
+  category: string;
 };
 
 export type User = {
@@ -27,3 +28,4 @@ export type User = {
   businessName?: string;
   avatarUrl: string;
 };
+

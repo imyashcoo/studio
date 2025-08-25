@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -5,10 +7,19 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight, Search, Star, Heart, Share2, MapPin, Users, DollarSign, TrendingUp, Sparkles, Target, Handshake } from 'lucide-react';
-import { mockRacks, mockUsers } from '@/lib/data';
+import { mockRacks, mockUsers, locations, businessCategories } from '@/lib/data';
 import { RackCard } from '@/components/RackCard';
 import { SellerCard } from '@/components/SellerCard';
 import { TestimonialCard } from '@/components/TestimonialCard';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function LandingPage() {
   const popularLocalities = ["Gomti Nagar", "Indira Nagar", "Mahanagar", "Chinhat"];
@@ -35,6 +46,19 @@ export default function LandingPage() {
     }
   ];
 
+  const [selectedState, setSelectedState] = useState('');
+  const [selectedCity, setSelectedCity] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const router = useRouter();
+
+  const handleSearch = () => {
+    const query = new URLSearchParams();
+    if (selectedState) query.set('state', selectedState);
+    if (selectedCity) query.set('city', selectedCity);
+    if (selectedCategory) query.set('category', selectedCategory);
+    router.push(`/explore?${query.toString()}`);
+  }
+
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -44,11 +68,32 @@ export default function LandingPage() {
             <Image src="/logo.svg" alt="RackUp Logo" width={30} height={30} />
             <span className="text-xl font-bold">RackUp</span>
           </Link>
-          <div className="hidden md:flex flex-1 max-w-sm ml-6">
-             <div className="relative w-full">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input placeholder="Search by City, Locality" className="pl-9" />
-             </div>
+          <div className="hidden md:flex items-center gap-2 flex-1 max-w-lg ml-6">
+              <Select value={selectedState} onValueChange={setSelectedState}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="State" />
+                </SelectTrigger>
+                <SelectContent>
+                  {locations.map(loc => <SelectItem key={loc.state} value={loc.state}>{loc.state}</SelectItem>)}
+                </SelectContent>
+              </Select>
+              <Select value={selectedCity} onValueChange={setSelectedCity} disabled={!selectedState}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="City" />
+                </SelectTrigger>
+                <SelectContent>
+                   {locations.find(loc => loc.state === selectedState)?.cities.map(city => <SelectItem key={city} value={city}>{city}</SelectItem>)}
+                </SelectContent>
+              </Select>
+               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Category" />
+                </SelectTrigger>
+                <SelectContent>
+                  {businessCategories.map(cat => <SelectItem key={cat.main} value={cat.main}>{cat.main}</SelectItem>)}
+                </SelectContent>
+              </Select>
+              <Button onClick={handleSearch}><Search className="h-4 w-4" /></Button>
           </div>
           <div className="flex items-center gap-2">
             <Button variant="ghost" asChild>
@@ -69,7 +114,7 @@ export default function LandingPage() {
             <p className="mt-4 text-lg md:text-xl font-light">Instantly.</p>
             <div className="mt-8 flex justify-center gap-4">
               <Button size="lg" variant="secondary" asChild><Link href="/explore">Find Shelfs</Link></Button>
-              <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-primary-foreground">Post Shelfs</Button>
+              <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-primary-foreground" asChild><Link href="/list-rack">Post Shelfs</Link></Button>
             </div>
           </div>
         </section>

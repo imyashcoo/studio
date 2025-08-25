@@ -19,12 +19,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { UploadCloud } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { LocationSearchInput } from '@/components/LocationSearchInput';
+import { businessCategories } from '@/lib/data';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const rackFormSchema = z.object({
   title: z.string().min(10, 'Title must be at least 10 characters long.'),
   description: z.string().min(20, 'Description must be at least 20 characters long.'),
   location: z.string().min(3, 'Location is required.'),
   pincode: z.string().regex(/^\d{6}$/, 'Must be a valid 6-digit pincode.'),
+  category: z.string().min(1, 'Category is required.'),
   weeklyRent: z.coerce.number().positive('Weekly rent must be a positive number.'),
   dailyFootfall: z.coerce.number().int().positive('Daily footfall must be a positive number.'),
   weeklyFootfall: z.coerce.number().int().positive('Weekly footfall must be a positive number.'),
@@ -44,6 +47,7 @@ export default function ListRackPage() {
       description: '',
       location: '',
       pincode: '',
+      category: '',
     },
   });
 
@@ -110,6 +114,30 @@ export default function ListRackPage() {
                 </FormControl>
                  <FormDescription>Upload multiple clear photos of your rack space.</FormDescription>
               </FormItem>
+              <div className="grid md:grid-cols-2 gap-8">
+                 <FormField
+                  control={form.control}
+                  name="category"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Business Category</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a category" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {businessCategories.map((cat) => (
+                            <SelectItem key={cat.main} value={cat.main}>{cat.main}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
               <div className="grid md:grid-cols-2 gap-8">
                 <FormField
                   control={form.control}
