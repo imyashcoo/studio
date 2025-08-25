@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -9,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { useAuth } from '@/lib/auth';
 import Link from 'next/link';
 
 const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -40,11 +42,7 @@ const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 
 export default function SignupPage() {
-
-  const handleSignup = (provider: 'google') => {
-     // TODO: Implement actual signup logic
-    console.log(`Signing up with ${provider}`);
-  }
+  const { signInWithGoogle } = useAuth();
 
   return (
     <div className="flex flex-grow items-center justify-center">
@@ -56,7 +54,7 @@ export default function SignupPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
-          <Button variant="outline" className="w-full" onClick={() => handleSignup('google')}>
+          <Button variant="outline" className="w-full" onClick={signInWithGoogle}>
             <GoogleIcon className="mr-2 h-5 w-5" />
             Continue with Google
           </Button>

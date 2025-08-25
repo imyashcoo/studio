@@ -1,3 +1,6 @@
+
+'use client';
+
 import {
   Tabs,
   TabsContent,
@@ -17,16 +20,29 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { mockRacks, mockUsers } from '@/lib/data';
+import { mockRacks } from '@/lib/data';
 import { Edit, Trash2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
-
-const user = mockUsers[0];
-const userRacks = mockRacks.filter(rack => rack.owner.id === user.id);
-const rentedRacks = [mockRacks[2]]; // Mock data for rented racks
+import { useAuth } from '@/lib/auth';
+import { useRouter } from 'next/navigation';
 
 export default function DashboardPage() {
+  const { user, loading } = useAuth();
+  const router = useRouter();
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
+
+  if (!user) {
+    router.push('/login');
+    return null;
+  }
+  
+  const userRacks = mockRacks.filter(rack => rack.owner.id === user.uid);
+  const rentedRacks = [mockRacks[2]]; // Mock data for rented racks
+
   return (
     <div className="space-y-6">
        <div>
@@ -127,19 +143,19 @@ export default function DashboardPage() {
             <CardContent className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="name">Full Name</Label>
-                <Input id="name" defaultValue={user.name} />
+                <Input id="name" defaultValue={user.displayName || ''} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" defaultValue={user.email} />
+                <Input id="email" type="email" defaultValue={user.email || ''} readOnly />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="phone">Phone Number</Label>
-                <Input id="phone" type="tel" defaultValue={user.phone} />
+                <Input id="phone" type="tel" defaultValue={user.phoneNumber || ''} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="business-name">Business Name (Optional)</Label>
-                <Input id="business-name" defaultValue={user.businessName} />
+                <Input id="business-name" />
               </div>
             </CardContent>
             <CardFooter>

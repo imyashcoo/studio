@@ -1,3 +1,4 @@
+
 export type Rack = {
   id: string;
   title: string;
@@ -21,11 +22,10 @@ export type Rack = {
 };
 
 export type User = {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
+  uid: string;
+  name: string | null;
+  email: string | null;
+  phone: string | null;
   businessName?: string;
-  avatarUrl: string;
+  avatarUrl: string | null;
 };
-
