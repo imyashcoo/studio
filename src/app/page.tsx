@@ -108,7 +108,7 @@ export default function LandingPage() {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative py-20 md:py-32 text-center bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+        <section className="relative py-20 md:py-32 text-center bg-gradient-to-br from-primary via-primary/80 to-accent text-primary-foreground">
           <div className="container">
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">Get Your Brand on Local Shelves</h1>
             <p className="mt-4 text-lg md:text-xl font-light">Instantly.</p>
@@ -137,7 +137,7 @@ export default function LandingPage() {
         </section>
 
         {/* CTA Banner */}
-        <section className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+        <section className="bg-gradient-to-r from-primary to-accent text-primary-foreground">
             <div className="container py-8 text-center">
                 <Link href="/list-rack" className="text-xl font-semibold hover:underline">
                     Are you an owner? Post Shelf For Free &rarr;
@@ -179,21 +179,21 @@ export default function LandingPage() {
           <div className="container text-center">
             <h2 className="text-3xl font-bold mb-12">Rack UP Benefits</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-sm">
+              <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-sm transition-all hover:shadow-xl hover:-translate-y-1">
                 <div className="bg-primary/10 text-primary p-4 rounded-full mb-4">
                     <DollarSign className="h-8 w-8" />
                 </div>
                 <h3 className="text-xl font-semibold">Low-cost entry</h3>
                 <p className="text-muted-foreground mt-2">Affordable shelf rentals vs ads.</p>
               </div>
-              <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-sm">
+              <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-sm transition-all hover:shadow-xl hover:-translate-y-1">
                 <div className="bg-primary/10 text-primary p-4 rounded-full mb-4">
                     <Sparkles className="h-8 w-8" />
                 </div>
                 <h3 className="text-xl font-semibold">Instant market presence</h3>
                 <p className="text-muted-foreground mt-2">Quick retail visibility.</p>
               </div>
-              <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-sm">
+              <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-sm transition-all hover:shadow-xl hover:-translate-y-1">
                  <div className="bg-primary/10 text-primary p-4 rounded-full mb-4">
                     <Handshake className="h-8 w-8" />
                 </div>

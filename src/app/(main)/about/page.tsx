@@ -21,21 +21,21 @@ export default function AboutUsPage() {
         <section>
              <h2 className="text-3xl font-bold text-center mb-10">What We Offer</h2>
              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                 <Card className="text-center p-6">
+                 <Card className="text-center p-6 transition-all hover:shadow-xl hover:-translate-y-1">
                     <CardContent className="flex flex-col items-center gap-4">
                         <Briefcase className="h-10 w-10 text-primary" />
                         <h3 className="text-xl font-semibold">Seamless Platform</h3>
                         <p className="text-muted-foreground">List racks with details like location, footfall, rent, and sales potential effortlessly.</p>
                     </CardContent>
                  </Card>
-                 <Card className="text-center p-6">
+                 <Card className="text-center p-6 transition-all hover:shadow-xl hover:-translate-y-1">
                     <CardContent className="flex flex-col items-center gap-4">
                         <Eye className="h-10 w-10 text-primary" />
                         <h3 className="text-xl font-semibold">Smart Search</h3>
                         <p className="text-muted-foreground">Smart search & filters to help businesses find racks that match their exact needs.</p>
                     </CardContent>
                  </Card>
-                 <Card className="text-center p-6">
+                 <Card className="text-center p-6 transition-all hover:shadow-xl hover:-translate-y-1">
                     <CardContent className="flex flex-col items-center gap-4">
                         <Handshake className="h-10 w-10 text-primary" />
                         <h3 className="text-xl font-semibold">Single Login</h3>
@@ -103,7 +103,7 @@ export default function AboutUsPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="text-center py-16 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg">
+        <section className="text-center py-16 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-lg">
           <h2 className="text-3xl font-bold mb-2">It’s not just about renting space—it’s about growing together.</h2>
           <p className="text-lg mb-8">Join the RackUp community today.</p>
           <div className="flex justify-center gap-4">
