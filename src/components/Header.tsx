@@ -55,7 +55,6 @@ export function Header() {
                 <Link href="/explore"><Button variant="ghost">Explore</Button></Link>
                 <Link href="/list-rack"><Button variant="ghost">List a Rack</Button></Link>
                 <Link href="/dashboard"><Button variant="ghost">Dashboard</Button></Link>
-                <Link href="/about"><Button variant="ghost">About Us</Button></Link>
            </div>
           <div className="flex items-center gap-2">
              <DropdownMenu>
