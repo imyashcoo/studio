@@ -71,7 +71,7 @@ export function RackCard({ rack }: RackCardProps) {
           </div>
         </div>
         <Link href={`/racks/${rack.id}`} className="w-full mt-4">
-            <Button className="w-full">View Shelf Details</Button>
+            <Button className="w-full">View Details</Button>
         </Link>
       </CardContent>
     </Card>

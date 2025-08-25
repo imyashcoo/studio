@@ -9,7 +9,7 @@ export default function AboutUsPage() {
       <main className="container mx-auto px-4 py-12 md:py-20 space-y-16">
         {/* Hero Section */}
         <section className="text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-primary">
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-primary">
             We believe every product deserves the right spotlight.
           </h1>
           <p className="max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground">

@@ -44,8 +44,8 @@ export default function LandingPage() {
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">Get Your Brand on Local Shelves</h1>
             <p className="mt-4 text-lg md:text-xl font-light">Instantly.</p>
             <div className="mt-8 flex justify-center gap-4">
-              <Button size="lg" variant="secondary" asChild><Link href="/explore">Find Shelfs</Link></Button>
-              <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-primary" asChild><Link href="/list-rack">Post Shelfs</Link></Button>
+              <Button size="lg" variant="secondary" asChild><Link href="/explore">Find a Rack</Link></Button>
+              <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-primary" asChild><Link href="/list-rack">List Your Rack</Link></Button>
             </div>
           </div>
         </section>
@@ -71,7 +71,7 @@ export default function LandingPage() {
         <section className="bg-gradient-to-r from-primary to-accent text-primary-foreground -mx-4">
             <div className="container py-8 text-center">
                 <Link href="/list-rack" className="text-xl font-semibold hover:underline">
-                    Are you an owner? Post Shelf For Free &rarr;
+                    Are you an owner? List Your Rack For Free &rarr;
                 </Link>
             </div>
         </section>
