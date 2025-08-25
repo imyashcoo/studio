@@ -13,7 +13,7 @@ export default function LoginPage() {
     <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4">
        <div className="absolute top-8 left-8">
          <Link href="/" className="flex items-center gap-2">
-           <Image src="/logo.svg" alt="RackUp Logo" width={30} height={30} />
+           
            <span className="font-semibold">RackUp</span>
          </Link>
       </div>

@@ -65,7 +65,7 @@ export default function LandingPage() {
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/logo.svg" alt="RackUp Logo" width={30} height={30} />
+            
             <span className="text-xl font-bold">RackUp</span>
           </Link>
           <div className="hidden md:flex items-center gap-2 flex-1 max-w-lg ml-6">
@@ -236,7 +236,7 @@ export default function LandingPage() {
             <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
                 <div className="col-span-2 md:col-span-1">
                      <Link href="/" className="flex items-center gap-2 mb-4">
-                        <Image src="/logo.svg" alt="RackUp Logo" width={30} height={30} />
+                        
                         <span className="text-xl font-bold">RackUp</span>
                     </Link>
                 </div>
