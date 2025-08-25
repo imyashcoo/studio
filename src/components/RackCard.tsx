@@ -5,8 +5,9 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
 import Link from 'next/link';
-import { MapPin, Users, DollarSign } from 'lucide-react';
+import { MapPin, Users, DollarSign, Heart, Share2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Button } from './ui/button';
 
 interface RackCardProps {
   rack: Rack;
@@ -14,9 +15,9 @@ interface RackCardProps {
 
 export function RackCard({ rack }: RackCardProps) {
   return (
-    <Link href={`/racks/${rack.id}`} className="group">
-      <Card className="overflow-hidden h-full flex flex-col transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
-        <div className="relative">
+    <Card className="overflow-hidden h-full flex flex-col transition-all duration-200 hover:shadow-xl hover:-translate-y-1 group/rackcard">
+      <div className="relative">
+        <Link href={`/racks/${rack.id}`}>
           <Image
             src={rack.photos[0]}
             alt={rack.title}
@@ -25,50 +26,48 @@ export function RackCard({ rack }: RackCardProps) {
             className="w-full h-48 object-cover"
             data-ai-hint="retail shelf"
           />
-          <Badge
-            className={cn(
-              'absolute top-3 right-3',
-              rack.status === 'Available' ? 'bg-green-500 hover:bg-green-600' : 'bg-red-500 hover:bg-red-600',
-              'text-white'
-            )}
-            variant="default"
-          >
-            {rack.status}
-          </Badge>
+        </Link>
+        <div className="absolute top-2 right-2 flex flex-col gap-2">
+           <Button variant="ghost" size="icon" className="h-8 w-8 bg-white/80 hover:bg-white rounded-full">
+              <Heart className="h-4 w-4 text-gray-700" />
+           </Button>
+            <Button variant="ghost" size="icon" className="h-8 w-8 bg-white/80 hover:bg-white rounded-full">
+              <Share2 className="h-4 w-4 text-gray-700" />
+           </Button>
         </div>
-        <CardContent className="p-4 flex-grow flex flex-col">
-          <h3 className="font-semibold text-lg leading-tight truncate group-hover:text-primary">{rack.title}</h3>
-          <div className="mt-2 flex items-center text-sm text-muted-foreground">
-            <MapPin className="h-4 w-4 mr-1.5 flex-shrink-0" />
-            <span className="truncate">{rack.location}, {rack.pincode}</span>
+      </div>
+      <CardContent className="p-4 flex-grow flex flex-col">
+        <h3 className="font-semibold text-lg leading-tight truncate group-hover/rackcard:text-primary">{rack.title}</h3>
+        <div className="mt-1 flex items-center text-sm text-muted-foreground">
+          <MapPin className="h-4 w-4 mr-1.5 flex-shrink-0" />
+          <span className="truncate">{rack.location}</span>
+        </div>
+        <div className="mt-4 flex-grow space-y-2 text-sm">
+          <div className="flex items-center text-muted-foreground">
+            <DollarSign className="h-4 w-4 mr-1.5 text-primary" />
+            <span>
+              <span className="font-bold text-foreground">₹{rack.weeklyRent.toLocaleString()}</span> / week
+            </span>
           </div>
-          <div className="mt-4 flex-grow space-y-2 text-sm">
-            <div className="flex items-center">
-              <DollarSign className="h-4 w-4 mr-1.5 text-green-600" />
-              <span>
-                <span className="font-semibold">₹{rack.weeklyRent.toLocaleString()}</span> / week
-              </span>
-            </div>
-            <div className="flex items-center">
-              <Users className="h-4 w-4 mr-1.5 text-blue-600" />
-              <span>
-                <span className="font-semibold">{rack.dailyFootfall.toLocaleString()}</span> daily footfall
-              </span>
-            </div>
+          <div className="flex items-center text-muted-foreground">
+            <Users className="h-4 w-4 mr-1.5 text-primary" />
+            <span>
+              <span className="font-bold text-foreground">{rack.dailyFootfall.toLocaleString()}</span> avg daily footfall
+            </span>
           </div>
-          <div className="mt-4 pt-4 border-t flex items-center gap-2">
-            <Image
-              src={rack.owner.avatarUrl}
-              alt={rack.owner.name}
-              width={24}
-              height={24}
-              className="rounded-full"
-              data-ai-hint="person avatar"
-            />
-            <span className="text-xs text-muted-foreground">Listed by {rack.owner.name}</span>
+           <div className="flex items-center text-muted-foreground">
+            <Users className="h-4 w-4 mr-1.5 text-primary" />
+             <span>
+              <span className="font-bold text-foreground">{rack.weeklySales.toLocaleString()}</span> avg weekly sales
+            </span>
           </div>
-        </CardContent>
-      </Card>
-    </Link>
+        </div>
+        <Link href={`/racks/${rack.id}`} className="w-full mt-4">
+            <Button className="w-full">View Shelf Details</Button>
+        </Link>
+      </CardContent>
+    </Card>
   );
 }
+
+    

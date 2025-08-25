@@ -1,136 +1,235 @@
-'use client';
-
-import { useState, useMemo } from 'react';
-import { mockRacks } from '@/lib/data';
-import type { Rack } from '@/types';
-import { RackCard } from '@/components/RackCard';
-import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { Button } from '@/components/ui/button';
-import { ArrowRight, Search } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
+import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+import { ArrowRight, Search, Star, Heart, Share2, MapPin, Users, DollarSign, TrendingUp, Sparkles, Target, Handshake } from 'lucide-react';
+import { mockRacks, mockUsers } from '@/lib/data';
+import { RackCard } from '@/components/RackCard';
+import { SellerCard } from '@/components/SellerCard';
+import { TestimonialCard } from '@/components/TestimonialCard';
 
 export default function LandingPage() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [sortBy, setSortBy] = useState('recent');
-
-  const activeRacks = useMemo(() => {
-    let racks: Rack[] = mockRacks.filter(r => r.status === 'Available');
-
-    // Filter by search term
-    if (searchTerm) {
-      racks = racks.filter(rack =>
-        rack.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        rack.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        rack.pincode.includes(searchTerm)
-      );
+  const popularLocalities = ["Gomti Nagar", "Indira Nagar", "Mahanagar", "Chinhat"];
+  const recommendedSellers = [
+    { name: "Sidharth Singh", status: "Rack Up Pro", location: "Gomti Nagar", avatar: "https://placehold.co/100x100.png", dataAiHint: "person avatar" },
+    { name: "Aradhana Pandey", status: "Rack Up Edge", location: "Mahanagar", avatar: "https://placehold.co/100x100.png", dataAiHint: "person avatar" }
+  ];
+   const testimonials = [
+    {
+      name: "Rishabh Arora",
+      reviews: 2,
+      rating: 5,
+      avatar: "https://placehold.co/100x100.png",
+      dataAiHint: "man portrait",
+      text: "Rackup gave our brand instant visibility in local shops without spending lakhs on ads. It was affordable, easy to set up, and we could track sales in real time."
+    },
+    {
+      name: "khira",
+      reviews: 2,
+      rating: 4,
+      avatar: "https://placehold.co/100x100.png",
+      dataAiHint: "woman portrait",
+      text: "Within weeks, we saw a significant increase in awareness and customer engagement."
     }
+  ];
 
-    // Sort
-    switch (sortBy) {
-      case 'rent_asc':
-        racks.sort((a, b) => a.weeklyRent - b.weeklyRent);
-        break;
-      case 'rent_desc':
-        racks.sort((a, b) => b.weeklyRent - a.weeklyRent);
-        break;
-      case 'footfall_desc':
-        racks.sort((a, b) => b.dailyFootfall - a.dailyFootfall);
-        break;
-      case 'recent':
-      default:
-        racks.reverse();
-        break;
-    }
-
-    return racks;
-  }, [searchTerm, sortBy]);
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <header className="container mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
-          <Image src="/logo.svg" alt="RackUp Logo" width={40} height={40} />
-          <span className="text-xl font-bold tracking-tight">RackUp</span>
-        </Link>
-        <div className="flex items-center gap-2">
-          <Button variant="ghost" asChild>
-            <Link href="/login">Log In</Link>
-          </Button>
-          <Button asChild>
-            <Link href="/signup">Sign Up</Link>
-          </Button>
+    <div className="flex flex-col min-h-screen bg-background">
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-16 items-center justify-between">
+          <Link href="/" className="flex items-center gap-2">
+            <Image src="/logo.svg" alt="RackUp Logo" width={30} height={30} />
+            <span className="text-xl font-bold">RackUp</span>
+          </Link>
+          <div className="hidden md:flex flex-1 max-w-sm ml-6">
+             <div className="relative w-full">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input placeholder="Search by City, Locality" className="pl-9" />
+             </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" asChild>
+              <Link href="/login">Log In</Link>
+            </Button>
+            <Button asChild>
+              <Link href="/signup">Sign Up</Link>
+            </Button>
+          </div>
         </div>
       </header>
+      
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="relative py-20 md:py-32 text-center bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+          <div className="container">
+            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">Get Your Brand on Local Shelves</h1>
+            <p className="mt-4 text-lg md:text-xl font-light">Instantly.</p>
+            <div className="mt-8 flex justify-center gap-4">
+              <Button size="lg" variant="secondary" asChild><Link href="/explore">Find Shelfs</Link></Button>
+              <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-primary-foreground">Post Shelfs</Button>
+            </div>
+          </div>
+        </section>
 
-      <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8">
-        <section className="py-16 sm:py-24 lg:py-32 text-center">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-primary-foreground">
-            Rent & List Retail Racks with Ease
-          </h1>
-          <p className="mt-6 max-w-2xl mx-auto text-lg text-muted-foreground">
-            The premier marketplace connecting brands with retail spaces. Find the perfect spot for your products or monetize your empty racks.
-          </p>
-          <div className="mt-8 flex justify-center gap-4">
-            <Button size="lg" asChild>
-              <Link href="/explore">
-                Explore All Racks <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-            <Button size="lg" variant="secondary" asChild>
-              <Link href="/list-rack">List Your Rack</Link>
-            </Button>
+        {/* Marketplace Section */}
+        <section className="py-16 bg-card">
+          <div className="container">
+            <div className="flex justify-between items-center mb-8">
+              <h2 className="text-3xl font-bold">Marketplace (Browse Shelves)</h2>
+              <Button variant="ghost" asChild>
+                <Link href="/explore">View All <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              </Button>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {mockRacks.slice(0, 4).map(rack => (
+                <RackCard key={rack.id} rack={rack} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Banner */}
+        <section className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+            <div className="container py-8 text-center">
+                <Link href="/list-rack" className="text-xl font-semibold hover:underline">
+                    Are you an owner? Post Shelf For Free &rarr;
+                </Link>
+            </div>
+        </section>
+
+        {/* Popular Localities */}
+        <section className="py-16 bg-card">
+          <div className="container">
+            <h2 className="text-3xl font-bold mb-8 text-center">Popular Localities</h2>
+            <div className="flex flex-wrap justify-center gap-4">
+              {popularLocalities.map(loc => (
+                <Button key={loc} variant="outline" className="rounded-full px-6">{loc}</Button>
+              ))}
+            </div>
           </div>
         </section>
         
-        <div className="flex flex-col gap-4 md:flex-row p-4 border rounded-lg bg-card mb-8">
-          <div className="relative flex-grow">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-            <Input
-              type="text"
-              placeholder="Search by title, location, or pincode..."
-              className="pl-10"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
+        {/* Exclusive Listing Section */}
+        <section className="py-16 bg-background">
+          <div className="container">
+            <div className="flex justify-between items-center mb-8">
+              <h2 className="text-3xl font-bold">Exclusive Listing <Badge className="ml-2 bg-purple-600 text-white">RackUP Plus</Badge></h2>
+              <Button variant="ghost" asChild>
+                <Link href="/explore?plan=plus">View All <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              </Button>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {mockRacks.slice(1, 5).map(rack => (
+                 <RackCard key={rack.id} rack={rack} />
+              ))}
+            </div>
           </div>
-          <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger className="w-full md:w-[180px]">
-              <SelectValue placeholder="Sort by" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="recent">Most Recent</SelectItem>
-              <SelectItem value="rent_asc">Rent: Low to High</SelectItem>
-              <SelectItem value="rent_desc">Rent: High to Low</SelectItem>
-              <SelectItem value="footfall_desc">Footfall: High to Low</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+        </section>
 
-        {activeRacks.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-16">
-            {activeRacks.map(rack => (
-              <RackCard key={rack.id} rack={rack} />
-            ))}
+        {/* Benefits Section */}
+        <section className="py-16 bg-card">
+          <div className="container text-center">
+            <h2 className="text-3xl font-bold mb-12">Rack UP Benefits</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="flex flex-col items-center">
+                <div className="bg-primary text-primary-foreground p-4 rounded-full mb-4">
+                    <DollarSign className="h-8 w-8" />
+                </div>
+                <h3 className="text-xl font-semibold">Low-cost entry</h3>
+                <p className="text-muted-foreground mt-2">Affordable shelf rentals vs ads.</p>
+              </div>
+              <div className="flex flex-col items-center">
+                <div className="bg-primary text-primary-foreground p-4 rounded-full mb-4">
+                    <Sparkles className="h-8 w-8" />
+                </div>
+                <h3 className="text-xl font-semibold">Instant market presence</h3>
+                <p className="text-muted-foreground mt-2">Quick retail visibility.</p>
+              </div>
+              <div className="flex flex-col items-center">
+                 <div className="bg-primary text-primary-foreground p-4 rounded-full mb-4">
+                    <Handshake className="h-8 w-8" />
+                </div>
+                <h3 className="text-xl font-semibold">Boost availability</h3>
+                <p className="text-muted-foreground mt-2">Direct engagement with local customers.</p>
+              </div>
+            </div>
           </div>
-        ) : (
-          <div className="text-center py-16">
-            <h3 className="text-xl font-semibold">No Racks Found</h3>
-            <p className="text-muted-foreground mt-2">Try adjusting your search or filters.</p>
-          </div>
-        )}
+        </section>
+
+        {/* Recommended Sellers Section */}
+        <section className="py-16 bg-background">
+            <div className="container">
+                <h2 className="text-3xl font-bold mb-8 text-center">Recommended Sellers</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
+                    {recommendedSellers.map((seller, index) => (
+                        <SellerCard key={index} {...seller} />
+                    ))}
+                </div>
+            </div>
+        </section>
+
+
+        {/* Testimonials Section */}
+        <section className="py-16 bg-card">
+            <div className="container">
+                <h2 className="text-3xl font-bold mb-8 text-center">Testimonials</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    {testimonials.map((testimonial, index) => (
+                        <TestimonialCard key={index} {...testimonial} />
+                    ))}
+                </div>
+            </div>
+        </section>
 
       </main>
 
-      <footer className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-muted-foreground">
-        <p>&copy; {new Date().getFullYear()} RackUp. All rights reserved.</p>
+      <footer className="bg-background border-t">
+        <div className="container py-12">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+                <div className="col-span-2 md:col-span-1">
+                     <Link href="/" className="flex items-center gap-2 mb-4">
+                        <Image src="/logo.svg" alt="RackUp Logo" width={30} height={30} />
+                        <span className="text-xl font-bold">RackUp</span>
+                    </Link>
+                </div>
+                <div>
+                    <h4 className="font-semibold mb-4">Company</h4>
+                    <ul className="space-y-2 text-muted-foreground">
+                        <li><Link href="#" className="hover:text-primary">About Us</Link></li>
+                        <li><Link href="#" className="hover:text-primary">Careers</Link></li>
+                        <li><Link href="#" className="hover:text-primary">Blog</Link></li>
+                    </ul>
+                </div>
+                 <div>
+                    <h4 className="font-semibold mb-4">Support</h4>
+                    <ul className="space-y-2 text-muted-foreground">
+                        <li><Link href="#" className="hover:text-primary">Contact Us</Link></li>
+                        <li><Link href="#" className="hover:text-primary">FAQ</Link></li>
+                        <li><Link href="#" className="hover:text-primary">Privacy Policy</Link></li>
+                         <li><Link href="#" className="hover:text-primary">Terms of Service</Link></li>
+                    </ul>
+                </div>
+                <div className="col-span-2 md:col-span-1">
+                    <h4 className="font-semibold mb-4">Get the App</h4>
+                    <div className="flex flex-col sm:flex-row gap-4">
+                        <Link href="#"><Image src="https://placehold.co/120x40.png?text=Google+Play" alt="Google Play" width={120} height={40} data-ai-hint="google play store" /></Link>
+                        <Link href="#"><Image src="https://placehold.co/120x40.png?text=App+Store" alt="App Store" width={120} height={40} data-ai-hint="apple app store" /></Link>
+                    </div>
+                </div>
+            </div>
+            <div className="mt-8 pt-8 border-t flex flex-col sm:flex-row justify-between items-center text-muted-foreground">
+                <p>&copy; {new Date().getFullYear()} RackUp Pvt. Ltd. All rights reserved.</p>
+                <div className="flex space-x-4 mt-4 sm:mt-0">
+                    <Link href="#" className="hover:text-primary"><Image src="https://placehold.co/24x24/ffffff/000000.png?text=f" alt="Facebook" width={24} height={24} className="rounded-full" data-ai-hint="facebook icon" /></Link>
+                    <Link href="#" className="hover:text-primary"><Image src="https://placehold.co/24x24/ffffff/000000.png?text=t" alt="Twitter" width={24} height={24} className="rounded-full" data-ai-hint="twitter icon" /></Link>
+                    <Link href="#" className="hover:text-primary"><Image src="https://placehold.co/24x24/ffffff/000000.png?text=in" alt="LinkedIn" width={24} height={24} className="rounded-full" data-ai-hint="linkedin icon" /></Link>
+                    <Link href="#" className="hover:text-primary"><Image src="https://placehold.co/24x24/ffffff/000000.png?text=ig" alt="Instagram" width={24} height={24} className="rounded-full" data-ai-hint="instagram icon" /></Link>
+                </div>
+            </div>
+        </div>
       </footer>
     </div>
   );
