@@ -1,10 +1,21 @@
 'use client';
 
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
+import { useToast } from '@/hooks/use-toast';
+import { Loader2 } from 'lucide-react';
+
 
 const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -33,48 +44,120 @@ const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-
 export default function SignupPage() {
+  const [name, setName] = useState('');
+  const [mobile, setMobile] = useState('');
+  const [otp, setOtp] = useState('');
+  const [otpSent, setOtpSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { toast } = useToast();
+
+  const handleGetOtp = async () => {
+    if (!/^\d{10}$/.test(mobile)) {
+      toast({
+        title: 'Invalid Mobile Number',
+        description: 'Please enter a valid 10-digit mobile number.',
+        variant: 'destructive',
+      });
+      return;
+    }
+    setLoading(true);
+    // Simulate API call
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setLoading(false);
+    setOtpSent(true);
+    toast({
+      title: 'OTP Sent',
+      description: 'An OTP has been sent to your mobile number.',
+    });
+  };
+
+  const handleSignup = () => {
+     // TODO: Implement actual signup logic
+    console.log("Signing up with", { name, mobile, otp });
+  }
+
   return (
     <div className="flex flex-grow items-center justify-center">
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl">Create an Account</CardTitle>
-          <CardDescription>Join RackUp to start listing or renting racks.</CardDescription>
+          <CardDescription>
+            Join RackUp to start listing or renting racks.
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-           <Button variant="outline" className="w-full">
-              <GoogleIcon className="mr-2 h-5 w-5" />
-              Continue with Google
-            </Button>
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">
-                  Or continue with
-                </span>
-              </div>
+          <Button variant="outline" className="w-full">
+            <GoogleIcon className="mr-2 h-5 w-5" />
+            Continue with Google
+          </Button>
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
             </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">
+                Or continue with
+              </span>
+            </div>
+          </div>
           <div className="space-y-2">
             <Label htmlFor="mobile">Mobile Number</Label>
-            <Input id="mobile" type="tel" placeholder="+91 12345 67890" required />
+            <div className="flex gap-2">
+              <Input
+                id="mobile"
+                type="tel"
+                placeholder="12345 67890"
+                required
+                value={mobile}
+                onChange={(e) => setMobile(e.target.value)}
+                disabled={otpSent || loading}
+                maxLength={10}
+              />
+              {!otpSent && (
+                <Button onClick={handleGetOtp} disabled={mobile.length !== 10 || loading}>
+                  {loading ? <Loader2 className="animate-spin" /> : "Get OTP"}
+                </Button>
+              )}
+            </div>
           </div>
-           <div className="space-y-2">
-            <Label htmlFor="otp">One-Time Password (OTP)</Label>
-            <Input id="otp" type="text" placeholder="Enter OTP" required />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="name">Full Name</Label>
-            <Input id="name" placeholder="John Doe" required />
-          </div>
+          {otpSent && (
+            <>
+              <div className="space-y-2">
+                <Label htmlFor="otp">One-Time Password (OTP)</Label>
+                <Input 
+                  id="otp" 
+                  type="text" 
+                  placeholder="Enter OTP" 
+                  required 
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value)}
+                  maxLength={6}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="name">Full Name</Label>
+                <Input 
+                  id="name" 
+                  placeholder="John Doe" 
+                  required 
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+            </>
+          )}
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
-          <Button className="w-full as-child"><Link href="/explore">Create Account</Link></Button>
+          <Button className="w-full as-child" disabled={!otpSent || otp.length !== 6 || name.length < 2}>
+            <Link href="/explore" onClick={handleSignup}>Create Account</Link>
+          </Button>
           <p className="text-center text-sm text-muted-foreground">
             Already have an account?{' '}
-            <Link href="/login" className="font-medium text-primary hover:underline">
+            <Link
+              href="/login"
+              className="font-medium text-primary hover:underline"
+            >
               Log In
             </Link>
           </p>
