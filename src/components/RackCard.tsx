@@ -14,6 +14,8 @@ interface RackCardProps {
 }
 
 export function RackCard({ rack }: RackCardProps) {
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(rack.location + " " + rack.pincode)}`;
+
   return (
     <Card className="overflow-hidden h-full flex flex-col transition-all duration-200 hover:shadow-xl hover:-translate-y-1 group/rackcard">
       <div className="relative">
@@ -38,10 +40,15 @@ export function RackCard({ rack }: RackCardProps) {
       </div>
       <CardContent className="p-4 flex-grow flex flex-col">
         <h3 className="font-semibold text-lg leading-tight truncate group-hover/rackcard:text-primary">{rack.title}</h3>
-        <div className="mt-1 flex items-center text-sm text-muted-foreground">
+        <a 
+          href={googleMapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-1 flex items-center text-sm text-muted-foreground hover:text-primary hover:underline"
+        >
           <MapPin className="h-4 w-4 mr-1.5 flex-shrink-0" />
           <span className="truncate">{rack.location}</span>
-        </div>
+        </a>
         <div className="mt-4 flex-grow space-y-2 text-sm">
           <div className="flex items-center text-muted-foreground">
             <DollarSign className="h-4 w-4 mr-1.5 text-primary" />

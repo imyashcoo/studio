@@ -18,6 +18,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { UploadCloud } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { LocationSearchInput } from '@/components/LocationSearchInput';
 
 const rackFormSchema = z.object({
   title: z.string().min(10, 'Title must be at least 10 characters long.'),
@@ -116,7 +117,16 @@ export default function ListRackPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Location</FormLabel>
-                      <FormControl><Input placeholder="e.g., Downtown, Metro City" {...field} /></FormControl>
+                       <FormControl>
+                        <LocationSearchInput 
+                          onLocationSelect={(address, pincode) => {
+                            form.setValue('location', address);
+                            if (pincode) {
+                              form.setValue('pincode', pincode);
+                            }
+                          }}
+                        />
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
