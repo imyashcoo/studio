@@ -28,6 +28,7 @@ import {
   LogOut,
   Bell,
   Search,
+  Info,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -66,6 +67,14 @@ export default function MainLayout({ children }: { children: ReactNode }) {
                 <Link href="/dashboard">
                   <LayoutDashboard />
                   <span>Dashboard</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild tooltip="About Us">
+                <Link href="/about">
+                  <Info />
+                  <span>About Us</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
