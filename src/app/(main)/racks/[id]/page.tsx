@@ -12,7 +12,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { Separator } from '@/components/ui/separator';
-import { MapPin, Users, DollarSign, Calendar, TrendingUp, Phone } from 'lucide-react';
+import { MapPin, Users, IndianRupee, Calendar, TrendingUp, Phone } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 
@@ -76,9 +76,9 @@ export default function RackDetailPage({ params }: { params: { id: string } }) {
             </CardHeader>
             <CardContent className="grid grid-cols-2 gap-4 text-sm">
               <div className="flex items-start gap-3">
-                <DollarSign className="h-5 w-5 mt-0.5 text-primary" />
+                <IndianRupee className="h-5 w-5 mt-0.5 text-primary" />
                 <div>
-                  <p className="font-semibold">₹{rack.weeklyRent.toLocaleString('en-IN')}</p>
+                  <p className="font-semibold">{rack.weeklyRent.toLocaleString('en-IN')}</p>
                   <p className="text-muted-foreground">Weekly Rent</p>
                 </div>
               </div>
@@ -92,7 +92,7 @@ export default function RackDetailPage({ params }: { params: { id: string } }) {
               <div className="flex items-start gap-3">
                 <TrendingUp className="h-5 w-5 mt-0.5 text-primary" />
                  <div>
-                  <p className="font-semibold">₹{rack.weeklySales.toLocaleString('en-IN')}</p>
+                  <p className="font-semibold">{rack.weeklySales.toLocaleString('en-IN')}</p>
                   <p className="text-muted-foreground">Avg. Weekly Sales</p>
                 </div>
               </div>
