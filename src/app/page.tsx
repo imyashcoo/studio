@@ -114,13 +114,13 @@ export default function LandingPage() {
             <p className="mt-4 text-lg md:text-xl font-light">Instantly.</p>
             <div className="mt-8 flex justify-center gap-4">
               <Button size="lg" variant="secondary" asChild><Link href="/explore">Find Shelfs</Link></Button>
-              <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-primary-foreground" asChild><Link href="/list-rack">Post Shelfs</Link></Button>
+              <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-primary" asChild><Link href="/list-rack">Post Shelfs</Link></Button>
             </div>
           </div>
         </section>
 
         {/* Marketplace Section */}
-        <section className="py-16 bg-card">
+        <section className="py-16 bg-muted">
           <div className="container">
             <div className="flex justify-between items-center mb-8">
               <h2 className="text-3xl font-bold">Marketplace (Browse Shelves)</h2>
@@ -146,12 +146,12 @@ export default function LandingPage() {
         </section>
 
         {/* Popular Localities */}
-        <section className="py-16 bg-card">
+        <section className="py-16 bg-muted">
           <div className="container">
             <h2 className="text-3xl font-bold mb-8 text-center">Popular Localities</h2>
             <div className="flex flex-wrap justify-center gap-4">
               {popularLocalities.map(loc => (
-                <Button key={loc} variant="outline" className="rounded-full px-6">{loc}</Button>
+                <Button key={loc} variant="outline" className="rounded-full px-6 bg-white">{loc}</Button>
               ))}
             </div>
           </div>
@@ -161,7 +161,7 @@ export default function LandingPage() {
         <section className="py-16 bg-background">
           <div className="container">
             <div className="flex justify-between items-center mb-8">
-              <h2 className="text-3xl font-bold">Exclusive Listing <Badge className="ml-2 bg-purple-600 text-white">RackUP Plus</Badge></h2>
+              <h2 className="text-3xl font-bold">Exclusive Listing <Badge className="ml-2 bg-primary text-primary-foreground">RackUP Plus</Badge></h2>
               <Button variant="ghost" asChild>
                 <Link href="/explore?plan=plus">View All <ArrowRight className="ml-2 h-4 w-4" /></Link>
               </Button>
@@ -175,26 +175,26 @@ export default function LandingPage() {
         </section>
 
         {/* Benefits Section */}
-        <section className="py-16 bg-card">
+        <section className="py-16 bg-muted">
           <div className="container text-center">
             <h2 className="text-3xl font-bold mb-12">Rack UP Benefits</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="flex flex-col items-center">
-                <div className="bg-primary text-primary-foreground p-4 rounded-full mb-4">
+              <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-sm">
+                <div className="bg-primary/10 text-primary p-4 rounded-full mb-4">
                     <DollarSign className="h-8 w-8" />
                 </div>
                 <h3 className="text-xl font-semibold">Low-cost entry</h3>
                 <p className="text-muted-foreground mt-2">Affordable shelf rentals vs ads.</p>
               </div>
-              <div className="flex flex-col items-center">
-                <div className="bg-primary text-primary-foreground p-4 rounded-full mb-4">
+              <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-sm">
+                <div className="bg-primary/10 text-primary p-4 rounded-full mb-4">
                     <Sparkles className="h-8 w-8" />
                 </div>
                 <h3 className="text-xl font-semibold">Instant market presence</h3>
                 <p className="text-muted-foreground mt-2">Quick retail visibility.</p>
               </div>
-              <div className="flex flex-col items-center">
-                 <div className="bg-primary text-primary-foreground p-4 rounded-full mb-4">
+              <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-sm">
+                 <div className="bg-primary/10 text-primary p-4 rounded-full mb-4">
                     <Handshake className="h-8 w-8" />
                 </div>
                 <h3 className="text-xl font-semibold">Boost availability</h3>
@@ -218,7 +218,7 @@ export default function LandingPage() {
 
 
         {/* Testimonials Section */}
-        <section className="py-16 bg-card">
+        <section className="py-16 bg-muted">
             <div className="container">
                 <h2 className="text-3xl font-bold mb-8 text-center">Testimonials</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">

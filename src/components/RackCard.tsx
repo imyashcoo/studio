@@ -17,7 +17,7 @@ export function RackCard({ rack }: RackCardProps) {
   const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(rack.location + " " + rack.pincode)}`;
 
   return (
-    <Card className="overflow-hidden h-full flex flex-col transition-all duration-200 hover:shadow-xl hover:-translate-y-1 group/rackcard">
+    <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-2 group/rackcard rounded-xl">
       <div className="relative">
         <Link href={`/racks/${rack.id}`}>
           <Image
@@ -25,20 +25,21 @@ export function RackCard({ rack }: RackCardProps) {
             alt={rack.title}
             width={400}
             height={250}
-            className="w-full h-48 object-cover"
+            className="w-full h-48 object-cover group-hover/rackcard:scale-105 transition-transform duration-300"
             data-ai-hint="retail shelf"
           />
         </Link>
-        <div className="absolute top-2 right-2 flex flex-col gap-2">
-           <Button variant="ghost" size="icon" className="h-8 w-8 bg-white/80 hover:bg-white rounded-full">
+        <div className="absolute top-3 right-3 flex flex-col gap-2">
+           <Button variant="ghost" size="icon" className="h-9 w-9 bg-white/80 hover:bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-200">
               <Heart className="h-4 w-4 text-gray-700" />
            </Button>
-            <Button variant="ghost" size="icon" className="h-8 w-8 bg-white/80 hover:bg-white rounded-full">
+            <Button variant="ghost" size="icon" className="h-9 w-9 bg-white/80 hover:bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-200">
               <Share2 className="h-4 w-4 text-gray-700" />
            </Button>
         </div>
+        <Badge className="absolute bottom-3 left-3 bg-black/50 text-white backdrop-blur-sm">{rack.category}</Badge>
       </div>
-      <CardContent className="p-4 flex-grow flex flex-col">
+      <CardContent className="p-4 flex-grow flex flex-col bg-white">
         <h3 className="font-semibold text-lg leading-tight truncate group-hover/rackcard:text-primary">{rack.title}</h3>
         <a 
           href={googleMapsUrl}
