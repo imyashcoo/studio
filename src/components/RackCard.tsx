@@ -46,19 +46,19 @@ export function RackCard({ rack }: RackCardProps) {
           <div className="flex items-center text-muted-foreground">
             <DollarSign className="h-4 w-4 mr-1.5 text-primary" />
             <span>
-              <span className="font-bold text-foreground">₹{rack.weeklyRent.toLocaleString()}</span> / week
+              <span className="font-bold text-foreground">₹{rack.weeklyRent.toLocaleString('en-IN')}</span> / week
             </span>
           </div>
           <div className="flex items-center text-muted-foreground">
             <Users className="h-4 w-4 mr-1.5 text-primary" />
             <span>
-              <span className="font-bold text-foreground">{rack.dailyFootfall.toLocaleString()}</span> avg daily footfall
+              <span className="font-bold text-foreground">{rack.dailyFootfall.toLocaleString('en-IN')}</span> avg daily footfall
             </span>
           </div>
            <div className="flex items-center text-muted-foreground">
             <Users className="h-4 w-4 mr-1.5 text-primary" />
              <span>
-              <span className="font-bold text-foreground">{rack.weeklySales.toLocaleString()}</span> avg weekly sales
+              <span className="font-bold text-foreground">{rack.weeklySales.toLocaleString('en-IN')}</span> avg weekly sales
             </span>
           </div>
         </div>
@@ -69,5 +69,3 @@ export function RackCard({ rack }: RackCardProps) {
     </Card>
   );
 }
-
-    

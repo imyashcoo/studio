@@ -78,28 +78,28 @@ export default function RackDetailPage({ params }: { params: { id: string } }) {
               <div className="flex items-start gap-3">
                 <DollarSign className="h-5 w-5 mt-0.5 text-primary" />
                 <div>
-                  <p className="font-semibold">₹{rack.weeklyRent.toLocaleString()}</p>
+                  <p className="font-semibold">₹{rack.weeklyRent.toLocaleString('en-IN')}</p>
                   <p className="text-muted-foreground">Weekly Rent</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <Users className="h-5 w-5 mt-0.5 text-primary" />
                 <div>
-                  <p className="font-semibold">{rack.weeklyFootfall.toLocaleString()}</p>
+                  <p className="font-semibold">{rack.weeklyFootfall.toLocaleString('en-IN')}</p>
                   <p className="text-muted-foreground">Weekly Footfall</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <TrendingUp className="h-5 w-5 mt-0.5 text-primary" />
                  <div>
-                  <p className="font-semibold">₹{rack.weeklySales.toLocaleString()}</p>
+                  <p className="font-semibold">₹{rack.weeklySales.toLocaleString('en-IN')}</p>
                   <p className="text-muted-foreground">Avg. Weekly Sales</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <Calendar className="h-5 w-5 mt-0.5 text-primary" />
                 <div>
-                  <p className="font-semibold">{rack.dailyFootfall.toLocaleString()}</p>
+                  <p className="font-semibold">{rack.dailyFootfall.toLocaleString('en-IN')}</p>
                   <p className="text-muted-foreground">Daily Footfall</p>
                 </div>
               </div>

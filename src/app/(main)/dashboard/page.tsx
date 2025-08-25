@@ -74,7 +74,7 @@ export default function DashboardPage() {
                           {rack.status}
                         </Badge>
                       </TableCell>
-                      <TableCell>₹{rack.weeklyRent.toLocaleString()}</TableCell>
+                      <TableCell>₹{rack.weeklyRent.toLocaleString('en-IN')}</TableCell>
                       <TableCell className="flex gap-2">
                         <Button variant="outline" size="icon">
                           <Edit className="h-4 w-4" />
