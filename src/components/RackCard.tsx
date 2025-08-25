@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
 import Link from 'next/link';
-import { MapPin, Users, DollarSign, Heart, Share2 } from 'lucide-react';
+import { MapPin, Users, IndianRupee, Heart, Share2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from './ui/button';
 
@@ -51,7 +51,7 @@ export function RackCard({ rack }: RackCardProps) {
         </a>
         <div className="mt-4 flex-grow space-y-2 text-sm">
           <div className="flex items-center text-muted-foreground">
-            <DollarSign className="h-4 w-4 mr-1.5 text-primary" />
+            <IndianRupee className="h-4 w-4 mr-1.5 text-primary" />
             <span>
               <span className="font-bold text-foreground">₹{rack.weeklyRent.toLocaleString('en-IN')}</span> / week
             </span>
@@ -63,9 +63,9 @@ export function RackCard({ rack }: RackCardProps) {
             </span>
           </div>
            <div className="flex items-center text-muted-foreground">
-            <Users className="h-4 w-4 mr-1.5 text-primary" />
+            <IndianRupee className="h-4 w-4 mr-1.5 text-primary" />
              <span>
-              <span className="font-bold text-foreground">{rack.weeklySales.toLocaleString('en-IN')}</span> avg weekly sales
+              <span className="font-bold text-foreground">₹{rack.weeklySales.toLocaleString('en-IN')}</span> avg weekly sales
             </span>
           </div>
         </div>
