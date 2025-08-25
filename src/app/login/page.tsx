@@ -4,48 +4,25 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Link from 'next/link';
 
 export default function LoginPage() {
   return (
     <div className="flex flex-grow items-center justify-center">
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-sm">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl">Welcome Back</CardTitle>
-          <CardDescription>Enter your credentials to access your account.</CardDescription>
+          <CardDescription>Enter your mobile number to receive an OTP.</CardDescription>
         </CardHeader>
-        <CardContent>
-          <Tabs defaultValue="email">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="email">Email</TabsTrigger>
-              <TabsTrigger value="mobile">Mobile</TabsTrigger>
-            </TabsList>
-            <TabsContent value="email">
-              <div className="space-y-4 pt-4">
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="m@example.com" required />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="password">Password</Label>
-                  <Input id="password" type="password" required />
-                </div>
-              </div>
-            </TabsContent>
-            <TabsContent value="mobile">
-              <div className="space-y-4 pt-4">
-                 <div className="space-y-2">
-                  <Label htmlFor="mobile">Mobile Number</Label>
-                  <Input id="mobile" type="tel" placeholder="+91 12345 67890" required />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="otp">One-Time Password (OTP)</Label>
-                  <Input id="otp" type="text" required />
-                </div>
-              </div>
-            </TabsContent>
-          </Tabs>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="mobile">Mobile Number</Label>
+            <Input id="mobile" type="tel" placeholder="+91 12345 67890" required />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="otp">One-Time Password (OTP)</Label>
+            <Input id="otp" type="text" placeholder="Enter your OTP" required />
+          </div>
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
           <Button className="w-full as-child"><Link href="/explore">Log In</Link></Button>
