@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -23,15 +25,17 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          'min-h-screen bg-background font-sans antialiased',
+          'min-h-screen bg-background font-sans antialiased flex flex-col',
           inter.variable
         )}
       >
-        {children}
+        <Header />
+        <main className="flex-1 w-full container mx-auto px-4 py-8">
+            {children}
+        </main>
+        <Footer />
         <Toaster />
       </body>
     </html>
   );
 }
-
-    

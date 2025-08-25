@@ -5,18 +5,11 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import Image from 'next/image';
 import Link from 'next/link';
 
 export default function LoginPage() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4">
-       <div className="absolute top-8 left-8">
-         <Link href="/" className="flex items-center gap-2">
-           
-           <span className="font-semibold">RackUp</span>
-         </Link>
-      </div>
+    <div className="flex flex-grow items-center justify-center">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl">Welcome Back</CardTitle>

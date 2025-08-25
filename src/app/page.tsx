@@ -1,25 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
-import { ArrowRight, Search, Star, Heart, Share2, MapPin, Users, DollarSign, TrendingUp, Sparkles, Target, Handshake } from 'lucide-react';
-import { mockRacks, mockUsers, locations, businessCategories } from '@/lib/data';
+import { ArrowRight, Star, DollarSign, Sparkles, Handshake } from 'lucide-react';
+import { mockRacks } from '@/lib/data';
 import { RackCard } from '@/components/RackCard';
 import { SellerCard } from '@/components/SellerCard';
 import { TestimonialCard } from '@/components/TestimonialCard';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 export default function LandingPage() {
   const popularLocalities = ["Gomti Nagar", "Indira Nagar", "Mahanagar", "Chinhat"];
@@ -46,69 +34,12 @@ export default function LandingPage() {
     }
   ];
 
-  const [selectedState, setSelectedState] = useState('');
-  const [selectedCity, setSelectedCity] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const router = useRouter();
-
-  const handleSearch = () => {
-    const query = new URLSearchParams();
-    if (selectedState) query.set('state', selectedState);
-    if (selectedCity) query.set('city', selectedCity);
-    if (selectedCategory) query.set('category', selectedCategory);
-    router.push(`/explore?${query.toString()}`);
-  }
-
-
   return (
     <div className="flex flex-col min-h-screen bg-background">
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            
-            <span className="text-xl font-bold">RackUp</span>
-          </Link>
-          <div className="hidden md:flex items-center gap-2 flex-1 max-w-lg ml-6">
-              <Select value={selectedState} onValueChange={setSelectedState}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="State" />
-                </SelectTrigger>
-                <SelectContent>
-                  {locations.map(loc => <SelectItem key={loc.state} value={loc.state}>{loc.state}</SelectItem>)}
-                </SelectContent>
-              </Select>
-              <Select value={selectedCity} onValueChange={setSelectedCity} disabled={!selectedState}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="City" />
-                </SelectTrigger>
-                <SelectContent>
-                   {locations.find(loc => loc.state === selectedState)?.cities.map(city => <SelectItem key={city} value={city}>{city}</SelectItem>)}
-                </SelectContent>
-              </Select>
-               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Category" />
-                </SelectTrigger>
-                <SelectContent>
-                  {businessCategories.map(cat => <SelectItem key={cat.main} value={cat.main}>{cat.main}</SelectItem>)}
-                </SelectContent>
-              </Select>
-              <Button onClick={handleSearch}><Search className="h-4 w-4" /></Button>
-          </div>
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" asChild>
-              <Link href="/login">Log In</Link>
-            </Button>
-            <Button asChild>
-              <Link href="/signup">Sign Up</Link>
-            </Button>
-          </div>
-        </div>
-      </header>
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative py-20 md:py-32 text-center bg-gradient-to-br from-primary via-primary/80 to-accent text-primary-foreground">
+        <section className="relative py-20 md:py-32 text-center bg-gradient-to-br from-primary via-primary/80 to-accent text-primary-foreground -mx-4">
           <div className="container">
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">Get Your Brand on Local Shelves</h1>
             <p className="mt-4 text-lg md:text-xl font-light">Instantly.</p>
@@ -120,7 +51,7 @@ export default function LandingPage() {
         </section>
 
         {/* Marketplace Section */}
-        <section className="py-16 bg-muted">
+        <section className="py-16 bg-muted -mx-4">
           <div className="container">
             <div className="flex justify-between items-center mb-8">
               <h2 className="text-3xl font-bold">Marketplace (Browse Shelves)</h2>
@@ -137,7 +68,7 @@ export default function LandingPage() {
         </section>
 
         {/* CTA Banner */}
-        <section className="bg-gradient-to-r from-primary to-accent text-primary-foreground">
+        <section className="bg-gradient-to-r from-primary to-accent text-primary-foreground -mx-4">
             <div className="container py-8 text-center">
                 <Link href="/list-rack" className="text-xl font-semibold hover:underline">
                     Are you an owner? Post Shelf For Free &rarr;
@@ -146,7 +77,7 @@ export default function LandingPage() {
         </section>
 
         {/* Popular Localities */}
-        <section className="py-16 bg-muted">
+        <section className="py-16 bg-muted -mx-4">
           <div className="container">
             <h2 className="text-3xl font-bold mb-8 text-center">Popular Localities</h2>
             <div className="flex flex-wrap justify-center gap-4">
@@ -158,7 +89,7 @@ export default function LandingPage() {
         </section>
         
         {/* Exclusive Listing Section */}
-        <section className="py-16 bg-background">
+        <section className="py-16 bg-background -mx-4">
           <div className="container">
             <div className="flex justify-between items-center mb-8">
               <h2 className="text-3xl font-bold">Exclusive Listing <Badge className="ml-2 bg-primary text-primary-foreground">RackUP Plus</Badge></h2>
@@ -175,7 +106,7 @@ export default function LandingPage() {
         </section>
 
         {/* Benefits Section */}
-        <section className="py-16 bg-muted">
+        <section className="py-16 bg-muted -mx-4">
           <div className="container text-center">
             <h2 className="text-3xl font-bold mb-12">Rack UP Benefits</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -205,7 +136,7 @@ export default function LandingPage() {
         </section>
 
         {/* Recommended Sellers Section */}
-        <section className="py-16 bg-background">
+        <section className="py-16 bg-background -mx-4">
             <div className="container">
                 <h2 className="text-3xl font-bold mb-8 text-center">Recommended Sellers</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
@@ -218,7 +149,7 @@ export default function LandingPage() {
 
 
         {/* Testimonials Section */}
-        <section className="py-16 bg-muted">
+        <section className="py-16 bg-muted -mx-4">
             <div className="container">
                 <h2 className="text-3xl font-bold mb-8 text-center">Testimonials</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -231,51 +162,6 @@ export default function LandingPage() {
 
       </main>
 
-      <footer className="bg-background border-t">
-        <div className="container py-12">
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
-                <div className="col-span-2 md:col-span-1">
-                     <Link href="/" className="flex items-center gap-2 mb-4">
-                        
-                        <span className="text-xl font-bold">RackUp</span>
-                    </Link>
-                </div>
-                <div>
-                    <h4 className="font-semibold mb-4">Company</h4>
-                    <ul className="space-y-2 text-muted-foreground">
-                        <li><Link href="/about" className="hover:text-primary">About Us</Link></li>
-                        <li><Link href="#" className="hover:text-primary">Careers</Link></li>
-                        <li><Link href="#" className="hover:text-primary">Blog</Link></li>
-                    </ul>
-                </div>
-                 <div>
-                    <h4 className="font-semibold mb-4">Support</h4>
-                    <ul className="space-y-2 text-muted-foreground">
-                        <li><Link href="#" className="hover:text-primary">Contact Us</Link></li>
-                        <li><Link href="#" className="hover:text-primary">FAQ</Link></li>
-                        <li><Link href="#" className="hover:text-primary">Privacy Policy</Link></li>
-                         <li><Link href="#" className="hover:text-primary">Terms of Service</Link></li>
-                    </ul>
-                </div>
-                <div className="col-span-2 md:col-span-1">
-                    <h4 className="font-semibold mb-4">Get the App</h4>
-                    <div className="flex flex-col sm:flex-row gap-4">
-                        <Link href="#"><Image src="https://placehold.co/120x40.png?text=Google+Play" alt="Google Play" width={120} height={40} data-ai-hint="google play store" /></Link>
-                        <Link href="#"><Image src="https://placehold.co/120x40.png?text=App+Store" alt="App Store" width={120} height={40} data-ai-hint="apple app store" /></Link>
-                    </div>
-                </div>
-            </div>
-            <div className="mt-8 pt-8 border-t flex flex-col sm:flex-row justify-between items-center text-muted-foreground">
-                <p>&copy; {new Date().getFullYear()} RackUp Pvt. Ltd. All rights reserved.</p>
-                <div className="flex space-x-4 mt-4 sm:mt-0">
-                    <Link href="#" className="hover:text-primary"><Image src="https://placehold.co/24x24/ffffff/000000.png?text=f" alt="Facebook" width={24} height={24} className="rounded-full" data-ai-hint="facebook icon" /></Link>
-                    <Link href="#" className="hover:text-primary"><Image src="https://placehold.co/24x24/ffffff/000000.png?text=t" alt="Twitter" width={24} height={24} className="rounded-full" data-ai-hint="twitter icon" /></Link>
-                    <Link href="#" className="hover:text-primary"><Image src="https://placehold.co/24x24/ffffff/000000.png?text=in" alt="LinkedIn" width={24} height={24} className="rounded-full" data-ai-hint="linkedin icon" /></Link>
-                    <Link href="#" className="hover:text-primary"><Image src="https://placehold.co/24x24/ffffff/000000.png?text=ig" alt="Instagram" width={24} height={24} className="rounded-full" data-ai-hint="instagram icon" /></Link>
-                </div>
-            </div>
-        </div>
-      </footer>
     </div>
   );
 }
