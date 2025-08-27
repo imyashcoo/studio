@@ -20,9 +20,6 @@ export function Header() {
   const navLinks = [
       { href: "/explore", label: "Explore" },
       { href: "/list-rack", label: "List Your Rack" },
-      { href: "/about", label: "About" },
-      { href: "/contact", label: "Contact" },
-      { href: "/faq", label: "FAQ" },
   ];
 
   return (
