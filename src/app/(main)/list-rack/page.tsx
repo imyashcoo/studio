@@ -62,8 +62,8 @@ export default function ListRackPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto py-12">
-      <Card className="shadow-lg">
+    <div className="max-w-4xl mx-auto py-12 px-4">
+      <Card className="shadow-lg transition-all duration-300 ease-in-out hover:shadow-2xl rounded-xl">
         <CardHeader>
           <CardTitle className="text-3xl font-bold tracking-tight">List Your Rack</CardTitle>
           <CardDescription>Fill in the details below to put your rack on the market.</CardDescription>
@@ -147,9 +147,10 @@ export default function ListRackPage() {
                       <FormLabel>Location</FormLabel>
                        <FormControl>
                         <LocationSearchInput
+                          initialValue={field.value}
                           onSelect={({ address, pincode }) => {
-                            form.setValue('location', address);
-                            if(pincode) form.setValue('pincode', pincode);
+                            form.setValue('location', address, { shouldValidate: true });
+                            if(pincode) form.setValue('pincode', pincode, { shouldValidate: true });
                           }}
                         />
                       </FormControl>
