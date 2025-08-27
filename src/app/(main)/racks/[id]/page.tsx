@@ -1,3 +1,4 @@
+
 import { mockRacks, mockUserDatabase } from '@/lib/data';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
@@ -123,35 +124,37 @@ export default function RackDetailPage({ params }: { params: { id: string } }) {
             
             <Separator />
 
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 rounded-lg bg-muted/50">
-              <div>
-                <h3 className="text-base font-semibold">Listed By</h3>
-                <div className="mt-2 flex items-center gap-3">
-                  <Avatar>
-                    <AvatarImage src={rack.owner.avatarUrl} alt={rack.owner.name} data-ai-hint="person avatar"/>
-                    <AvatarFallback>{rack.owner.name.substring(0,2)}</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="font-semibold">{rack.owner.name}</p>
-                    <p className="text-sm text-muted-foreground">{rack.owner.businessName || 'Individual Lister'}</p>
-                  </div>
-                </div>
-              </div>
-              <div className="flex gap-2 w-full sm:w-auto">
-                   <Button asChild variant="outline" className="flex-1 sm:flex-none">
-                      <Link href={phoneUrl}>
-                        <Phone className="mr-2 h-4 w-4" /> Contact
-                      </Link>
-                  </Button>
-                  {whatsappUrl && (
-                      <Button asChild className="flex-1 sm:flex-none bg-green-500 hover:bg-green-600">
-                          <Link href={whatsappUrl} target="_blank">
-                              <MessageSquare className="mr-2 h-4 w-4" /> WhatsApp
-                          </Link>
-                      </Button>
-                  )}
-              </div>
-            </div>
+            <Card>
+                <CardHeader>
+                    <CardTitle>Listed By</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <div className="flex items-center gap-4">
+                        <Avatar className="h-14 w-14">
+                            <AvatarImage src={rack.owner.avatarUrl} alt={rack.owner.name} data-ai-hint="person avatar"/>
+                            <AvatarFallback>{rack.owner.name.substring(0,2)}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                            <p className="text-lg font-semibold">{rack.owner.name}</p>
+                            <p className="text-sm text-muted-foreground">{rack.owner.businessName || 'Individual Lister'}</p>
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <Button asChild variant="outline" className="w-full">
+                            <Link href={phoneUrl}>
+                                <Phone className="mr-2 h-4 w-4" /> Contact
+                            </Link>
+                        </Button>
+                        {whatsappUrl && (
+                            <Button asChild className="w-full bg-green-500 hover:bg-green-600">
+                                <Link href={whatsappUrl} target="_blank">
+                                    <MessageSquare className="mr-2 h-4 w-4" /> WhatsApp
+                                </Link>
+                            </Button>
+                        )}
+                    </div>
+                </CardContent>
+            </Card>
             
             <Button size="lg" className="w-full" disabled={rack.status === 'Rented'}>
               {rack.status === 'Available' ? 'Enquire Now' : 'This rack is currently rented'}
