@@ -9,7 +9,7 @@ export function Footer() {
             <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
                 <div className="col-span-2 md:col-span-1">
                      <Link href="/" className="flex items-center gap-2 mb-4">
-                        <Image src="/logo.svg" alt="RackUp Logo" width={32} height={32} />
+                        <Image src="/logo.svg" alt="RackUp Logo" width={32} height={32} className="h-8 w-auto" />
                         <span className="text-xl font-bold">RackUp</span>
                     </Link>
                 </div>
@@ -33,7 +33,7 @@ export function Footer() {
                 <div className="col-span-2">
                     <h4 className="font-semibold mb-4">Get the App</h4>
                     <div className="text-sm text-muted-foreground">
-                        <p>Coming Soon on</p>
+                        <p>Coming Soon</p>
                         <p className="font-medium text-foreground">Google Play &amp; App Store</p>
                     </div>
                 </div>
