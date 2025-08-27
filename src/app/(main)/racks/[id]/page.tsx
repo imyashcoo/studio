@@ -79,11 +79,11 @@ export default function RackDetailPage({ params }: { params: { id: string } }) {
             <CardHeader>
               <CardTitle>Key Information</CardTitle>
             </CardHeader>
-            <CardContent className="grid grid-cols-2 gap-4 text-sm">
+            <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
               <div className="flex items-start gap-3">
                 <IndianRupee className="h-5 w-5 mt-0.5 text-primary" />
                 <div>
-                  <p className="font-semibold">{rack.weeklyRent.toLocaleString('en-IN')}</p>
+                  <p className="font-semibold">₹{rack.weeklyRent.toLocaleString('en-IN')}</p>
                   <p className="text-muted-foreground">Weekly Rent</p>
                 </div>
               </div>
@@ -97,7 +97,7 @@ export default function RackDetailPage({ params }: { params: { id: string } }) {
               <div className="flex items-start gap-3">
                 <TrendingUp className="h-5 w-5 mt-0.5 text-primary" />
                  <div>
-                  <p className="font-semibold">{rack.weeklySales.toLocaleString('en-IN')}</p>
+                  <p className="font-semibold">₹{rack.weeklySales.toLocaleString('en-IN')}</p>
                   <p className="text-muted-foreground">Avg. Weekly Sales</p>
                 </div>
               </div>

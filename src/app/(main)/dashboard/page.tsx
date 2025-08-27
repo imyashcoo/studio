@@ -53,8 +53,8 @@ export default function DashboardPage() {
           <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
           <p className="text-muted-foreground">Manage your listings, rentals, and profile.</p>
         </div>
-      <Tabs defaultValue="my-listings">
-        <TabsList>
+      <Tabs defaultValue="my-listings" className="w-full">
+        <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 h-auto sm:h-10">
           <TabsTrigger value="my-listings">My Listings</TabsTrigger>
           <TabsTrigger value="my-rentals">My Rentals</TabsTrigger>
           <TabsTrigger value="profile">Profile Settings</TabsTrigger>
@@ -68,6 +68,7 @@ export default function DashboardPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
+             <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -80,7 +81,7 @@ export default function DashboardPage() {
                 <TableBody>
                   {userRacks.map(rack => (
                     <TableRow key={rack.id}>
-                      <TableCell className="font-medium">{rack.title}</TableCell>
+                      <TableCell className="font-medium whitespace-nowrap">{rack.title}</TableCell>
                       <TableCell>
                         <Badge
                            variant={rack.status === 'Available' ? 'default' : 'destructive'}
@@ -107,6 +108,7 @@ export default function DashboardPage() {
                   ))}
                 </TableBody>
               </Table>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
@@ -121,7 +123,7 @@ export default function DashboardPage() {
             <CardContent>
               <div className="space-y-4">
               {rentedRacks.map(rack => (
-                <div key={rack.id} className="flex items-center justify-between p-4 border rounded-lg">
+                <div key={rack.id} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 border rounded-lg">
                   <div className="flex items-center gap-4">
                     <Image src={rack.photos[0]} alt={rack.title} width={80} height={60} className="rounded-md object-cover" data-ai-hint="retail shelf"/>
                     <div>
@@ -129,7 +131,7 @@ export default function DashboardPage() {
                       <p className="text-sm text-muted-foreground">{rack.location}</p>
                     </div>
                   </div>
-                   <Button variant="outline">View Details</Button>
+                   <Button variant="outline" className="w-full sm:w-auto">View Details</Button>
                 </div>
               ))}
               </div>

@@ -43,7 +43,7 @@ export default function LandingPage() {
           <div className="container">
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">Get Your Brand on Local Shelves</h1>
             <p className="mt-4 text-lg md:text-xl font-light">Instantly.</p>
-            <div className="mt-8 flex justify-center gap-4">
+            <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
               <Button size="lg" variant="secondary" asChild><Link href="/explore">Find a Rack</Link></Button>
               <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-primary" asChild><Link href="/list-rack">List Your Rack</Link></Button>
             </div>
@@ -53,8 +53,8 @@ export default function LandingPage() {
         {/* Marketplace Section */}
         <section className="py-16 bg-muted -mx-4">
           <div className="container">
-            <div className="flex justify-between items-center mb-8">
-              <h2 className="text-3xl font-bold">Marketplace (Browse Shelves)</h2>
+            <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+              <h2 className="text-3xl font-bold text-center sm:text-left">Marketplace (Browse Shelves)</h2>
               <Button variant="ghost" asChild>
                 <Link href="/explore">View All <ArrowRight className="ml-2 h-4 w-4" /></Link>
               </Button>
@@ -70,7 +70,7 @@ export default function LandingPage() {
         {/* CTA Banner */}
         <section className="bg-gradient-to-r from-primary to-accent text-primary-foreground -mx-4">
             <div className="container py-8 text-center">
-                <Link href="/list-rack" className="text-xl font-semibold hover:underline">
+                <Link href="/list-rack" className="text-lg md:text-xl font-semibold hover:underline">
                     Are you an owner? List Your Rack For Free &rarr;
                 </Link>
             </div>
@@ -91,8 +91,8 @@ export default function LandingPage() {
         {/* Exclusive Listing Section */}
         <section className="py-16 bg-background -mx-4">
           <div className="container">
-            <div className="flex justify-between items-center mb-8">
-              <h2 className="text-3xl font-bold">Exclusive Listing <Badge className="ml-2 bg-primary text-primary-foreground">RackUP Plus</Badge></h2>
+            <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+              <h2 className="text-3xl font-bold text-center sm:text-left">Exclusive Listing <Badge className="ml-2 bg-primary text-primary-foreground">RackUP Plus</Badge></h2>
               <Button variant="ghost" asChild>
                 <Link href="/explore?plan=plus">View All <ArrowRight className="ml-2 h-4 w-4" /></Link>
               </Button>
