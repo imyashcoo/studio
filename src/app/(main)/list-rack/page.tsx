@@ -1,3 +1,4 @@
+
 'use client';
 
 import { z } from 'zod';
@@ -21,6 +22,9 @@ import { useToast } from '@/hooks/use-toast';
 import { businessCategories } from '@/lib/data';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import LocationSearchInput from '@/components/LocationSearchInput';
+import { useAuth } from '@/lib/auth';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 const rackFormSchema = z.object({
   title: z.string().min(10, 'Title must be at least 10 characters long.'),
@@ -40,6 +44,15 @@ type RackFormValues = z.infer<typeof rackFormSchema>;
 
 export default function ListRackPage() {
   const { toast } = useToast();
+  const { user, loading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push('/login');
+    }
+  }, [user, loading, router]);
+  
   const form = useForm<RackFormValues>({
     resolver: zodResolver(rackFormSchema),
     defaultValues: {
@@ -59,6 +72,10 @@ export default function ListRackPage() {
       variant: 'default',
     });
     form.reset();
+  }
+  
+  if (loading || !user) {
+    return <div>Loading...</div>;
   }
 
   return (
