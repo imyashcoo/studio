@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/lib/auth';
 import { useRouter } from 'next/navigation';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Mountain } from 'lucide-react';
+import { Menu } from 'lucide-react';
+import Image from 'next/image';
 
 export function Header() {
   const { user, logout } = useAuth();
@@ -26,7 +27,7 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2 mr-6">
-          <Mountain className="h-6 w-6" />
+          <Image src="/logo.svg" alt="RackUp Logo" width={32} height={32} />
           <span className="text-xl font-bold">RackUp</span>
         </Link>
         
@@ -69,7 +70,7 @@ export function Header() {
                 <SheetContent side="right">
                     <nav className="grid gap-6 text-lg font-medium mt-8">
                         <Link href="/" className="flex items-center gap-2 text-lg font-semibold mb-4">
-                            <Mountain className="h-6 w-6" />
+                            <Image src="/logo.svg" alt="RackUp Logo" width={32} height={32} />
                             <span>RackUp</span>
                         </Link>
                         {navLinks.map(link => (

@@ -9,6 +9,7 @@ export function Footer() {
             <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
                 <div className="col-span-2 md:col-span-1">
                      <Link href="/" className="flex items-center gap-2 mb-4">
+                        <Image src="/logo.svg" alt="RackUp Logo" width={32} height={32} />
                         <span className="text-xl font-bold">RackUp</span>
                     </Link>
                 </div>
