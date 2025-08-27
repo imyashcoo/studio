@@ -68,9 +68,10 @@ export default function DashboardPage() {
   }, [allRacks, user]);
 
   const rentedRacks = useMemo(() => {
-    // This is mock data, in real app it would be a separate list
-    return allRacks.filter(r => r.id === 'rack-3' || r.id === 'rack-6');
-  }, [allRacks]);
+    if (!user) return [];
+    // This is mock data, in real app it would be a separate list of rented racks for the user
+    return allRacks.filter(r => (r.id === 'rack-3' || r.id === 'rack-6') && r.status === 'Rented');
+  }, [allRacks, user]);
 
 
   const handleDeleteRack = (rackId: string) => {

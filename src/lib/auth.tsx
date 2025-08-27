@@ -1,3 +1,4 @@
+
 'use client';
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
@@ -66,8 +67,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       throw new Error('Invalid credentials or user not found.');
     }
     
-    setUser(foundUser);
-    localStorage.setItem('loggedInUser', JSON.stringify(foundUser));
+    // SECURITY FIX: Do not store the password in the user object that goes to the state and localStorage.
+    const { password: _, ...userToStore } = foundUser;
+
+    setUser(userToStore);
+    localStorage.setItem('loggedInUser', JSON.stringify(userToStore));
     router.push('/dashboard');
   };
 

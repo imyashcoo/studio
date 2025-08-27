@@ -1,4 +1,5 @@
 
+
 export type Rack = {
   id: string;
   title: string;
@@ -27,10 +28,11 @@ export type User = {
   name: string | null;
   email: string | null;
   mobile: string | null;
-  whatsapp: string | null;
+  whatsapp?: string | null;
   businessName?: string;
   avatarUrl?: string | null;
-  password?: string;
+  password?: string; // This is only used for the mock DB, not for client-side state
   isAdmin?: boolean;
 };
+
 
