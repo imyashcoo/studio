@@ -1,11 +1,14 @@
-'use client';
 
+'use client';
+import React, { Suspense } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, DollarSign, Sparkles, Handshake } from 'lucide-react';
 import { mockRacks } from '@/lib/data';
 import { RackCard } from '@/components/RackCard';
-import { TestimonialCard } from '@/components/TestimonialCard';
+
+const TestimonialCard = React.lazy(() => import('@/components/TestimonialCard').then(module => ({ default: module.TestimonialCard })));
+
 
 export default function LandingPage() {
    const testimonials = [
@@ -104,9 +107,11 @@ export default function LandingPage() {
             <div className="container">
                 <h2 className="text-3xl font-bold mb-8 text-center">What Our Users Say</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                    {testimonials.map((testimonial, index) => (
-                        <TestimonialCard key={index} {...testimonial} />
-                    ))}
+                    <Suspense fallback={<div className="h-full w-full bg-muted rounded-lg animate-pulse"></div>}>
+                        {testimonials.map((testimonial, index) => (
+                            <TestimonialCard key={index} {...testimonial} />
+                        ))}
+                    </Suspense>
                 </div>
             </div>
         </section>

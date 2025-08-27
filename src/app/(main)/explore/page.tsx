@@ -27,9 +27,16 @@ function ExplorePageInternal() {
   const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || 'All');
 
   useEffect(() => {
-    setSelectedState(searchParams.get('state') || 'All');
-    setSelectedCity(searchParams.get('city') || 'All');
-    setSelectedCategory(searchParams.get('category') || 'All');
+    const stateParam = searchParams.get('state') || 'All';
+    const cityParam = searchParams.get('city') || 'All';
+    const categoryParam = searchParams.get('category') || 'All';
+
+    setSelectedState(stateParam);
+    // Ensure city is valid for the selected state
+    const availableCities = locations.find(l => l.state === stateParam)?.cities || [];
+    setSelectedCity(availableCities.includes(cityParam) ? cityParam : 'All');
+    
+    setSelectedCategory(categoryParam);
   }, [searchParams]);
 
   const filteredAndSortedRacks = useMemo(() => {
