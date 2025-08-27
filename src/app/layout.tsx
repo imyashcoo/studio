@@ -4,8 +4,6 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
-import { Header } from '@/components/Header';
-import { Footer } from '@/components/Footer';
 import { AuthProvider } from '@/lib/auth';
 import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics';
 import { GoogleTagManager } from '@/components/analytics/GoogleTagManager';

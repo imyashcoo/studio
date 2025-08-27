@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { ArrowRight, DollarSign, Sparkles, Handshake } from 'lucide-react';
 import { mockRacks } from '@/lib/data';
 import { RackCard } from '@/components/RackCard';

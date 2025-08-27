@@ -58,7 +58,7 @@ export function RackCard({ rack }: RackCardProps) {
 
   return (
     <div 
-      className="overflow-hidden h-full flex flex-col transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1 group/rackcard rounded-lg border-border/60 cursor-pointer bg-card"
+      className="overflow-hidden h-full flex flex-col transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1 group/rackcard rounded-lg border hover:border-primary cursor-pointer bg-card"
       onClick={handleCardClick}
     >
       <div className="relative">
@@ -95,10 +95,16 @@ export function RackCard({ rack }: RackCardProps) {
         <div 
           className="mt-1 flex items-center text-xs text-muted-foreground hover:text-primary"
           onClick={(e) => {
-            handleInteraction(e, () => {
-                e.stopPropagation();
-                window.open(googleMapsUrl, '_blank', 'noopener,noreferrer');
-            });
+            e.stopPropagation();
+            if(user) {
+              window.open(googleMapsUrl, '_blank', 'noopener,noreferrer');
+            } else {
+              toast({
+                title: 'Please Log In',
+                description: 'You need to be logged in to view the location.',
+                variant: 'destructive',
+              });
+            }
           }}
         >
           <MapPin className="h-3 w-3 mr-1.5 flex-shrink-0" />
