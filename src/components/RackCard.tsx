@@ -8,6 +8,9 @@ import Link from 'next/link';
 import { MapPin, Users, IndianRupee, Heart, Share2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from './ui/button';
+import { useAuth } from '@/lib/auth';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/hooks/use-toast';
 
 interface RackCardProps {
   rack: Rack;
@@ -15,11 +18,27 @@ interface RackCardProps {
 
 export function RackCard({ rack }: RackCardProps) {
   const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(rack.location + " " + rack.pincode)}`;
+  const { user } = useAuth();
+  const router = useRouter();
+  const { toast } = useToast();
+
+  const handleViewDetails = () => {
+    if (user) {
+      router.push(`/racks/${rack.id}`);
+    } else {
+      toast({
+        title: 'Please Log In',
+        description: 'You need to be logged in to view rack details.',
+        variant: 'destructive'
+      });
+      router.push('/login');
+    }
+  };
 
   return (
     <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1 group/rackcard rounded-lg border-border/60">
       <div className="relative">
-        <Link href={`/racks/${rack.id}`}>
+        <div onClick={handleViewDetails} className="cursor-pointer">
           <Image
             src={rack.photos[0]}
             alt={rack.title}
@@ -28,7 +47,7 @@ export function RackCard({ rack }: RackCardProps) {
             className="w-full h-48 object-cover group-hover/rackcard:scale-105 transition-transform duration-300"
             data-ai-hint="retail shelf"
           />
-        </Link>
+        </div>
         <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover/rackcard:opacity-100 transition-opacity duration-300">
            <Button variant="ghost" size="icon" className="h-9 w-9 bg-white/80 hover:bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-200">
               <Heart className="h-4 w-4 text-gray-700" />
@@ -46,6 +65,7 @@ export function RackCard({ rack }: RackCardProps) {
           target="_blank"
           rel="noopener noreferrer"
           className="mt-1 flex items-center text-xs text-muted-foreground hover:text-primary"
+          onClick={(e) => e.stopPropagation()} // Prevents card click handler
         >
           <MapPin className="h-3 w-3 mr-1.5 flex-shrink-0" />
           <span className="truncate">{rack.location}</span>
@@ -63,9 +83,7 @@ export function RackCard({ rack }: RackCardProps) {
             </span>
           </div>
         </div>
-        <Link href={`/racks/${rack.id}`} className="w-full mt-4">
-            <Button className="w-full" variant="secondary">View Details</Button>
-        </Link>
+        <Button className="w-full mt-4" variant="secondary" onClick={handleViewDetails}>View Details</Button>
       </CardContent>
     </Card>
   );
