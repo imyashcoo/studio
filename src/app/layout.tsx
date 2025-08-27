@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
+import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { AuthProvider } from '@/lib/auth';
 
@@ -31,6 +32,7 @@ export default function RootLayout({
         )}
       >
         <AuthProvider>
+            <Header />
             <main className="flex-1 w-full container mx-auto px-4 py-8">
                 {children}
             </main>
