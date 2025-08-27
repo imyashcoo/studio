@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
@@ -19,7 +20,6 @@ import React from 'react';
 function ExplorePageInternal() {
   const searchParams = useSearchParams();
   const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState('All');
   const [sortBy, setSortBy] = useState('recent');
   
   const [selectedState, setSelectedState] = useState(searchParams.get('state') || 'All');
@@ -33,7 +33,8 @@ function ExplorePageInternal() {
   }, [searchParams]);
 
   const filteredAndSortedRacks = useMemo(() => {
-    let racks: Rack[] = [...mockRacks];
+    // Start with only available racks
+    let racks: Rack[] = mockRacks.filter(rack => rack.status === 'Available');
 
     // Filter by search term
     if (searchTerm) {
@@ -57,11 +58,6 @@ function ExplorePageInternal() {
         racks = racks.filter(rack => rack.category === selectedCategory)
     }
 
-    // Filter by status
-    if (statusFilter !== 'All') {
-      racks = racks.filter(rack => rack.status === statusFilter);
-    }
-
     // Sort
     switch (sortBy) {
       case 'rent_asc':
@@ -81,7 +77,7 @@ function ExplorePageInternal() {
     }
 
     return racks;
-  }, [searchTerm, statusFilter, sortBy, selectedState, selectedCity, selectedCategory]);
+  }, [searchTerm, sortBy, selectedState, selectedCity, selectedCategory]);
 
   const handleStateChange = (state: string) => {
       setSelectedState(state);
@@ -98,7 +94,7 @@ function ExplorePageInternal() {
       </div>
       
       <div className="flex flex-col gap-4 p-4 border rounded-lg bg-card">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
              <Select value={selectedState} onValueChange={handleStateChange}>
                 <SelectTrigger>
                   <SelectValue placeholder="State" />
@@ -124,16 +120,6 @@ function ExplorePageInternal() {
                 <SelectContent>
                   <SelectItem value="All">All Categories</SelectItem>
                   {businessCategories.map(cat => <SelectItem key={cat.main} value={cat.main}>{cat.main}</SelectItem>)}
-                </SelectContent>
-              </Select>
-             <Select value={statusFilter} onValueChange={setStatusFilter}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Filter by status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="All">All Statuses</SelectItem>
-                  <SelectItem value="Available">Available</SelectItem>
-                  <SelectItem value="Rented">Rented</SelectItem>
                 </SelectContent>
               </Select>
         </div>

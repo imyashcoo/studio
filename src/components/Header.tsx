@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -5,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/lib/auth';
 import { useRouter, usePathname } from 'next/navigation';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu } from 'lucide-react';
+import { Menu, ShieldCheck } from 'lucide-react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
@@ -48,6 +49,12 @@ export function Header() {
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
+          {user?.isAdmin && (
+            <Button variant="outline" size="sm" onClick={() => router.push('/admin')}>
+              <ShieldCheck className="mr-2 h-4 w-4" />
+              Admin Panel
+            </Button>
+          )}
           {user ? (
             <>
               <Button variant="ghost" onClick={() => router.push('/dashboard')}>
@@ -94,6 +101,12 @@ export function Header() {
                             </Link>
                         ))}
                          <div className="flex flex-col gap-4 mt-4">
+                          {user?.isAdmin && (
+                            <Button variant="outline" onClick={() => router.push('/admin')}>
+                              <ShieldCheck className="mr-2 h-4 w-4" />
+                              Admin Panel
+                            </Button>
+                          )}
                           {user ? (
                             <>
                               <Button variant="ghost" onClick={() => router.push('/dashboard')}>

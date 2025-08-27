@@ -17,7 +17,7 @@ export type Rack = {
   dailySales: number;
   weeklySales: number;
   photos: string[];
-  status: 'Available' | 'Rented';
+  status: 'Available' | 'Rented' | 'Pending Approval' | 'Rejected';
   category: string;
 };
 
@@ -31,4 +31,6 @@ export type User = {
   businessName?: string;
   avatarUrl?: string | null;
   password?: string;
+  isAdmin?: boolean;
 };
+

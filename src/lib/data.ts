@@ -6,13 +6,14 @@ export const mockUserDatabase: { [key: string]: User } = {
   'user-1': {
     uid: 'user-1',
     id: 'user-1',
-    name: 'John Doe',
-    email: 'john.doe@example.com',
+    name: 'Admin User',
+    email: 'admin@rackup.com',
     mobile: '1234567890',
     whatsapp: '911234567890',
-    businessName: 'JD Retail',
+    businessName: 'RackUp HQ',
     avatarUrl: 'https://placehold.co/100x100.png',
-    password: 'password123'
+    password: 'password123',
+    isAdmin: true,
   },
   'user-2': {
     uid: 'user-2',
@@ -30,11 +31,12 @@ export const mockUserDatabase: { [key: string]: User } = {
 export const mockUsers: Omit<User, 'uid' | 'password'>[] = [
   {
     id: 'user-1',
-    name: 'John Doe',
-    email: 'john.doe@example.com',
+    name: 'Admin User',
+    email: 'admin@rackup.com',
     mobile: '1234567890',
-    businessName: 'JD Retail',
+    businessName: 'RackUp HQ',
     avatarUrl: 'https://placehold.co/100x100.png',
+    isAdmin: true,
   },
   {
     id: 'user-2',
@@ -52,9 +54,9 @@ export const mockRacks: Rack[] = [
     description: 'Excellent visibility at the end of a busy aisle. Perfect for new product launches. Comes with optional branding panels. High footfall guaranteed.',
     owner: {
         id: 'user-1',
-        name: 'John Doe',
+        name: 'Admin User',
         avatarUrl: 'https://placehold.co/100x100.png',
-        businessName: 'JD Retail'
+        businessName: 'RackUp HQ'
     },
     location: 'Downtown, Metro City',
     pincode: '110001',
@@ -97,9 +99,9 @@ export const mockRacks: Rack[] = [
     description: 'Compact display space right at the checkout counter. Perfect for impulse buys like snacks, drinks, or small gift items. Constant queue of customers.',
     owner: {
         id: 'user-1',
-        name: 'John Doe',
+        name: 'Admin User',
         avatarUrl: 'https://placehold.co/100x100.png',
-        businessName: 'JD Retail'
+        businessName: 'RackUp HQ'
     },
     location: 'Central Park, Metro City',
     pincode: '110001',
@@ -129,7 +131,7 @@ export const mockRacks: Rack[] = [
     dailySales: 25000,
     weeklySales: 175000,
     photos: ['https://placehold.co/600x400.png'],
-    status: 'Available',
+    status: 'Pending Approval',
     category: 'Electronics & Appliances',
   },
     {
@@ -138,9 +140,9 @@ export const mockRacks: Rack[] = [
     description: 'A dedicated shelf in a popular organic food store. Great for healthy snacks, supplements, or eco-friendly products. Targets health-conscious consumers.',
     owner: {
         id: 'user-1',
-        name: 'John Doe',
+        name: 'Admin User',
         avatarUrl: 'https://placehold.co/100x100.png',
-        businessName: 'JD Retail'
+        businessName: 'RackUp HQ'
     },
     location: 'Greenway, Wellness City',
     pincode: '600028',

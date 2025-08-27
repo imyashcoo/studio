@@ -19,12 +19,13 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { UploadCloud } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { businessCategories } from '@/lib/data';
+import { businessCategories, mockRacks } from '@/lib/data';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import LocationSearchInput from '@/components/LocationSearchInput';
 import { useAuth } from '@/lib/auth';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import type { Rack } from '@/types';
 
 const rackFormSchema = z.object({
   title: z.string().min(10, 'Title must be at least 10 characters long.'),
@@ -49,7 +50,7 @@ export default function ListRackPage() {
 
   useEffect(() => {
     if (!loading && !user) {
-      router.push('/login');
+      router.push('/login?redirect=/list-rack');
     }
   }, [user, loading, router]);
   
@@ -65,13 +66,34 @@ export default function ListRackPage() {
   });
 
   function onSubmit(data: RackFormValues) {
-    console.log(data);
+    if (!user) return;
+
+    // In a real app, this would be an API call.
+    // Here we just add it to our mock data array.
+    const newRack: Rack = {
+      id: `rack-${Date.now()}`,
+      status: 'Pending Approval',
+      owner: {
+        id: user.uid,
+        name: user.name || 'Unknown',
+        avatarUrl: user.avatarUrl || '',
+        businessName: user.businessName || '',
+      },
+      photos: ['https://placehold.co/600x400.png'],
+      ...data,
+    };
+    mockRacks.push(newRack);
+    
+    console.log('New Rack Submitted:', newRack);
+    console.log('Updated mockRacks:', mockRacks);
+
     toast({
-      title: 'Listing Submitted!',
-      description: 'Your rack has been successfully listed for review.',
+      title: 'Listing Submitted for Review!',
+      description: 'Your rack has been successfully submitted and is pending admin approval.',
       variant: 'default',
     });
     form.reset();
+    router.push('/dashboard');
   }
   
   if (loading || !user) {
@@ -250,7 +272,7 @@ export default function ListRackPage() {
               </div>
               <div className="flex justify-end gap-4 pt-4">
                 <Button type="button" variant="outline">Cancel</Button>
-                <Button type="submit">Submit Listing</Button>
+                <Button type="submit">Submit for Approval</Button>
               </div>
             </form>
           </Form>

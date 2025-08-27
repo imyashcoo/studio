@@ -10,6 +10,7 @@ import { AuthProvider } from '@/lib/auth';
 import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics';
 import { GoogleTagManager } from '@/components/analytics/GoogleTagManager';
 import { Suspense } from 'react';
+import { AppContent } from './AppContent';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -39,12 +40,9 @@ export default function RootLayout({
           <GoogleAnalytics />
         </Suspense>
         <AuthProvider>
-            <Header />
-            <main className="flex-1 w-full container mx-auto px-4 py-8">
-                {children}
-            </main>
-            <Footer />
-            <Toaster />
+            <AppContent>
+              {children}
+            </AppContent>
         </AuthProvider>
       </body>
     </html>
