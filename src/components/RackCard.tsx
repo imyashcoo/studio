@@ -32,28 +32,33 @@ export function RackCard({ rack }: RackCardProps) {
       toast({
         title: 'Please Log In',
         description: 'You need to be logged in to perform this action.',
-        variant: 'destructive'
+        variant: 'destructive',
+        action: (
+            <Button onClick={() => router.push('/login')} variant="secondary">Login</Button>
+        )
       });
-      router.push('/login');
     }
   };
 
-  const handleCardClick = () => {
+  const handleCardClick = (e: React.MouseEvent) => {
+    e.preventDefault();
     if (user) {
       router.push(`/racks/${rack.id}`);
     } else {
       toast({
         title: 'Please Log In',
         description: 'You need to be logged in to view rack details.',
-        variant: 'destructive'
+        variant: 'destructive',
+        action: (
+            <Button onClick={() => router.push('/login')} variant="secondary">Login</Button>
+        )
       });
-      router.push('/login');
     }
   };
 
   return (
-    <Card 
-      className="overflow-hidden h-full flex flex-col transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1 group/rackcard rounded-lg border-border/60 cursor-pointer"
+    <div 
+      className="overflow-hidden h-full flex flex-col transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1 group/rackcard rounded-lg border-border/60 cursor-pointer bg-card"
       onClick={handleCardClick}
     >
       <div className="relative">
@@ -85,19 +90,15 @@ export function RackCard({ rack }: RackCardProps) {
         </div>
         <Badge className="absolute bottom-3 left-3 bg-black/50 text-white backdrop-blur-sm">{rack.category}</Badge>
       </div>
-      <CardContent className="p-4 flex-grow flex flex-col bg-card">
+      <CardContent className="p-4 flex-grow flex flex-col">
         <h3 className="font-semibold text-base leading-tight truncate group-hover/rackcard:text-primary">{rack.title}</h3>
         <div 
           className="mt-1 flex items-center text-xs text-muted-foreground hover:text-primary"
           onClick={(e) => {
-            if (!user) {
-              e.preventDefault();
-              e.stopPropagation();
-              handleInteraction(e, () => {});
-            } else {
-              e.stopPropagation(); // Allow link to open if user is logged in
-              window.open(googleMapsUrl, '_blank', 'noopener,noreferrer');
-            }
+            handleInteraction(e, () => {
+                e.stopPropagation();
+                window.open(googleMapsUrl, '_blank', 'noopener,noreferrer');
+            });
           }}
         >
           <MapPin className="h-3 w-3 mr-1.5 flex-shrink-0" />
@@ -116,11 +117,8 @@ export function RackCard({ rack }: RackCardProps) {
             </span>
           </div>
         </div>
-        <Button className="w-full mt-4" variant="secondary" onClick={(e) => {
-            e.stopPropagation(); // Prevent card's onClick from firing twice
-            handleCardClick();
-        }}>View Details</Button>
+        <Button className="w-full mt-4" variant="secondary" onClick={handleCardClick}>View Details</Button>
       </CardContent>
-    </Card>
+    </div>
   );
 }

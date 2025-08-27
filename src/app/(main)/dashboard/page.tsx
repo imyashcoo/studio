@@ -41,7 +41,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { useToast } from '@/hooks/use-toast';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 
 export default function DashboardPage() {
@@ -84,7 +84,7 @@ export default function DashboardPage() {
   
   const handleOpenEditDialog = (rack: Rack) => {
       setSelectedRack(rack);
-      setNewStatus(rack.status === 'Rented' ? 'Available' : 'Rented');
+      setNewStatus(rack.status);
       setIsEditDialogOpen(true);
   }
 
@@ -121,7 +121,6 @@ export default function DashboardPage() {
           <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
           <p className="text-muted-foreground">Manage your listings, rentals, and profile.</p>
         </div>
-      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <Tabs defaultValue="my-listings" className="w-full">
           <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 h-auto sm:h-10">
             <TabsTrigger value="my-listings">My Listings</TabsTrigger>
@@ -261,33 +260,34 @@ export default function DashboardPage() {
             </Card>
           </TabsContent>
         </Tabs>
-        <DialogContent>
-            <DialogHeader>
-                <DialogTitle>Edit Rack Status</DialogTitle>
-                <DialogDescription>
-                    Update the status of your rack. Mark it as "Rented" if it's currently occupied.
-                </DialogDescription>
-            </DialogHeader>
-            <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="status" className="text-right">Status</Label>
-                    <Select onValueChange={(value: Rack['status']) => setNewStatus(value)} defaultValue={selectedRack?.status}>
-                        <SelectTrigger className="col-span-3">
-                            <SelectValue placeholder="Select a status" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="Available">Available</SelectItem>
-                            <SelectItem value="Rented">Rented</SelectItem>
-                        </SelectContent>
-                    </Select>
-                </div>
-            </div>
-            <DialogFooter>
-                <Button type="button" variant="outline" onClick={() => setIsEditDialogOpen(false)}>Cancel</Button>
-                <Button type="submit" onClick={handleUpdateStatus}>Save changes</Button>
-            </DialogFooter>
-        </DialogContent>
-      </Dialog>
+        <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+          <DialogContent>
+              <DialogHeader>
+                  <DialogTitle>Edit Rack Status</DialogTitle>
+                  <DialogDescription>
+                      Update the status of your rack. Mark it as "Rented" if it's currently occupied.
+                  </DialogDescription>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                  <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="status" className="text-right">Status</Label>
+                      <Select onValueChange={(value: Rack['status']) => setNewStatus(value)} defaultValue={selectedRack?.status}>
+                          <SelectTrigger className="col-span-3">
+                              <SelectValue placeholder="Select a status" />
+                          </SelectTrigger>
+                          <SelectContent>
+                              <SelectItem value="Available">Available</SelectItem>
+                              <SelectItem value="Rented">Rented</SelectItem>
+                          </SelectContent>
+                      </Select>
+                  </div>
+              </div>
+              <DialogFooter>
+                  <Button type="button" variant="outline" onClick={() => setIsEditDialogOpen(false)}>Cancel</Button>
+                  <Button type="submit" onClick={handleUpdateStatus}>Save changes</Button>
+              </DialogFooter>
+          </DialogContent>
+        </Dialog>
     </div>
   );
 }
