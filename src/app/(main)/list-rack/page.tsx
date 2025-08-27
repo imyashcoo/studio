@@ -18,7 +18,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { UploadCloud } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { LocationSearchInput } from '@/components/LocationSearchInput';
 import { businessCategories } from '@/lib/data';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
@@ -146,14 +145,7 @@ export default function ListRackPage() {
                     <FormItem>
                       <FormLabel>Location</FormLabel>
                        <FormControl>
-                        <LocationSearchInput 
-                          onLocationSelect={(address, pincode) => {
-                            form.setValue('location', address);
-                            if (pincode) {
-                              form.setValue('pincode', pincode);
-                            }
-                          }}
-                        />
+                        <Input placeholder="e.g., Downtown, Metro City" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
