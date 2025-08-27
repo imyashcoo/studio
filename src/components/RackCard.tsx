@@ -1,3 +1,4 @@
+
 'use client';
 
 import type { Rack } from '@/types';
@@ -103,6 +104,9 @@ export function RackCard({ rack }: RackCardProps) {
                 title: 'Please Log In',
                 description: 'You need to be logged in to view the location.',
                 variant: 'destructive',
+                 action: (
+                    <Button onClick={() => router.push('/login')} variant="secondary">Login</Button>
+                )
               });
             }
           }}
@@ -123,7 +127,7 @@ export function RackCard({ rack }: RackCardProps) {
             </span>
           </div>
         </div>
-        <Button className="w-full mt-4" variant="secondary" onClick={handleCardClick}>View Details</Button>
+        <Button className="w-full mt-4" variant="secondary" onClick={(e) => handleCardClick(e)}>View Details</Button>
       </CardContent>
     </div>
   );

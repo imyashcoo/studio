@@ -72,7 +72,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     setUser(userToStore);
     localStorage.setItem('loggedInUser', JSON.stringify(userToStore));
-    router.push('/dashboard');
+    // The redirect is now handled in the login page itself.
   };
 
   const logout = async () => {
