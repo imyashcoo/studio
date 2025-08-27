@@ -32,9 +32,9 @@ export function Footer() {
                 </div>
                 <div className="col-span-2">
                     <h4 className="font-semibold mb-4">Get the App</h4>
-                    <div className="flex flex-col sm:flex-row gap-4">
-                        <Link href="#"><Image src="https://placehold.co/120x40.png?text=Google+Play" alt="Google Play" width={120} height={40} data-ai-hint="google play store" /></Link>
-                        <Link href="#"><Image src="https://placehold.co/120x40.png?text=App+Store" alt="App Store" width={120} height={40} data-ai-hint="apple app store" /></Link>
+                    <div className="text-sm text-muted-foreground">
+                        <p>Coming Soon on</p>
+                        <p className="font-medium text-foreground">Google Play &amp; App Store</p>
                     </div>
                 </div>
             </div>
