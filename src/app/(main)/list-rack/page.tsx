@@ -15,11 +15,12 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { UploadCloud } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { businessCategories } from '@/lib/data';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import LocationSearchInput from '@/components/LocationSearchInput';
 
 const rackFormSchema = z.object({
   title: z.string().min(10, 'Title must be at least 10 characters long.'),
@@ -61,11 +62,11 @@ export default function ListRackPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <Card>
+    <div className="max-w-4xl mx-auto py-12">
+      <Card className="shadow-lg">
         <CardHeader>
           <CardTitle className="text-3xl font-bold tracking-tight">List Your Rack</CardTitle>
-          <p className="text-muted-foreground">Fill in the details below to put your rack on the market.</p>
+          <CardDescription>Fill in the details below to put your rack on the market.</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -101,7 +102,7 @@ export default function ListRackPage() {
                 <FormLabel>Rack Photos</FormLabel>
                 <FormControl>
                     <div className="flex items-center justify-center w-full">
-                        <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-lg cursor-pointer bg-card hover:bg-muted">
+                        <label htmlFor="dropzone-file" className="relative flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-lg cursor-pointer bg-card hover:bg-muted transition-colors">
                             <div className="flex flex-col items-center justify-center pt-5 pb-6">
                                 <UploadCloud className="w-10 h-10 mb-3 text-muted-foreground"/>
                                 <p className="mb-2 text-sm text-muted-foreground"><span className="font-semibold">Click to upload</span> or drag and drop</p>
@@ -145,7 +146,12 @@ export default function ListRackPage() {
                     <FormItem>
                       <FormLabel>Location</FormLabel>
                        <FormControl>
-                        <Input placeholder="e.g., Downtown, Metro City" {...field} />
+                        <LocationSearchInput
+                          onSelect={({ address, pincode }) => {
+                            form.setValue('location', address);
+                            if(pincode) form.setValue('pincode', pincode);
+                          }}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -220,7 +226,7 @@ export default function ListRackPage() {
                   )}
                 />
               </div>
-              <div className="flex justify-end gap-4">
+              <div className="flex justify-end gap-4 pt-4">
                 <Button type="button" variant="outline">Cancel</Button>
                 <Button type="submit">Submit Listing</Button>
               </div>
