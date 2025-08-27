@@ -155,10 +155,6 @@ export default function RackDetailPage({ params }: { params: { id: string } }) {
                     </div>
                 </CardContent>
             </Card>
-            
-            <Button size="lg" className="w-full" disabled={rack.status === 'Rented'}>
-              {rack.status === 'Available' ? 'Enquire Now' : 'This rack is currently rented'}
-            </Button>
           </div>
         </div>
       </div>
