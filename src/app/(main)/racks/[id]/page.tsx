@@ -27,6 +27,7 @@ export default function RackDetailPage({ params }: { params: { id: string } }) {
 
   const owner = mockUserDatabase[rack.owner.id];
   const whatsappUrl = owner?.whatsapp ? `https://wa.me/${owner.whatsapp.replace(/[^0-9]/g, '')}` : '';
+  const phoneUrl = owner?.mobile ? `tel:${owner.mobile}` : '';
 
   const similarRacks = mockRacks.filter(r => r.category === rack.category && r.id !== rack.id).slice(0, 3);
 
@@ -137,8 +138,10 @@ export default function RackDetailPage({ params }: { params: { id: string } }) {
                 </div>
               </div>
               <div className="flex gap-2 w-full sm:w-auto">
-                   <Button variant="outline" className="flex-1 sm:flex-none">
-                      <Phone className="mr-2 h-4 w-4" /> Contact
+                   <Button asChild variant="outline" className="flex-1 sm:flex-none">
+                      <Link href={phoneUrl}>
+                        <Phone className="mr-2 h-4 w-4" /> Contact
+                      </Link>
                   </Button>
                   {whatsappUrl && (
                       <Button asChild className="flex-1 sm:flex-none bg-green-500 hover:bg-green-600">
