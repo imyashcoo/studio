@@ -18,8 +18,8 @@ export function Header() {
   };
   
   const navLinks = [
-      { href: "/explore", label: "Explore" },
-      { href: "/list-rack", label: "List Your Rack" },
+      { href: "/explore", label: "explore racks" },
+      { href: "/list-rack", label: "list racks" },
   ];
 
   return (
@@ -32,7 +32,7 @@ export function Header() {
         
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
              {navLinks.map(link => (
-                 <Link key={link.href} href={link.href} className="transition-colors hover:text-foreground/80 text-foreground/60">
+                 <Link key={link.href} href={link.href} className="transition-colors hover:text-foreground/80 text-foreground/60 capitalize">
                     {link.label}
                  </Link>
              ))}
@@ -73,7 +73,7 @@ export function Header() {
                             <span>RackUp</span>
                         </Link>
                         {navLinks.map(link => (
-                            <Link key={link.href} href={link.href} className="transition-colors hover:text-foreground/80 text-foreground/60">
+                            <Link key={link.href} href={link.href} className="transition-colors hover:text-foreground/80 text-foreground/60 capitalize">
                                 {link.label}
                             </Link>
                         ))}
