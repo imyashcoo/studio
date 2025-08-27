@@ -1,5 +1,32 @@
 import type { Rack, User } from '@/types';
 
+// In a real app, this would be a real database.
+// This is exported so other parts of the mock app can access it.
+export const mockUserDatabase: { [key: string]: User } = {
+  'user-1': {
+    uid: 'user-1',
+    id: 'user-1',
+    name: 'John Doe',
+    email: 'john.doe@example.com',
+    mobile: '1234567890',
+    whatsapp: '911234567890',
+    businessName: 'JD Retail',
+    avatarUrl: 'https://placehold.co/100x100.png',
+    password: 'password123'
+  },
+  'user-2': {
+    uid: 'user-2',
+    id: 'user-2',
+    name: 'Jane Smith',
+    email: 'jane.smith@example.com',
+    mobile: '0987654321',
+    whatsapp: '910987654321',
+    avatarUrl: 'https://placehold.co/100x100.png',
+    password: 'password123'
+  },
+};
+
+
 export const mockUsers: Omit<User, 'uid' | 'password'>[] = [
   {
     id: 'user-1',

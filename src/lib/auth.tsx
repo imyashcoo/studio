@@ -3,10 +3,10 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import type { User } from '@/types';
+import { mockUserDatabase } from '@/lib/data';
 
 // In a real app, you'd use a proper database.
-const mockUserDatabase: { [key: string]: User } = {};
-let mockUserIdCounter = 0;
+let mockUserIdCounter = Object.keys(mockUserDatabase).length;
 
 interface AuthContextType {
   user: User | null;
@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         throw new Error('User with this email or mobile number already exists.');
     }
 
-    const uid = `user-${mockUserIdCounter++}`;
+    const uid = `user-${++mockUserIdCounter}`;
     const newUser: User = {
         uid,
         email,

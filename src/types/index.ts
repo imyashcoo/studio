@@ -22,6 +22,7 @@ export type Rack = {
 };
 
 export type User = {
+  id?: string;
   uid: string;
   name: string | null;
   email: string | null;

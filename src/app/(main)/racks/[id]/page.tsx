@@ -1,4 +1,4 @@
-import { mockRacks, mockUsers } from '@/lib/data';
+import { mockRacks, mockUserDatabase } from '@/lib/data';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -12,9 +12,10 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { Separator } from '@/components/ui/separator';
-import { MapPin, Users, IndianRupee, Calendar, TrendingUp, Phone } from 'lucide-react';
+import { MapPin, Users, IndianRupee, Calendar, TrendingUp, Phone, MessageSquare } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 export default function RackDetailPage({ params }: { params: { id: string } }) {
   const rack = mockRacks.find(r => r.id === params.id);
@@ -22,6 +23,10 @@ export default function RackDetailPage({ params }: { params: { id: string } }) {
   if (!rack) {
     notFound();
   }
+
+  const owner = mockUserDatabase[rack.owner.id];
+  const whatsappUrl = owner?.whatsapp ? `https://wa.me/${owner.whatsapp.replace(/[^0-9]/g, '')}` : '';
+
 
   return (
     <div className="max-w-6xl mx-auto">
@@ -113,7 +118,7 @@ export default function RackDetailPage({ params }: { params: { id: string } }) {
           
           <Separator />
 
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
               <h3 className="text-lg font-semibold">Listed By</h3>
               <div className="mt-2 flex items-center gap-3">
@@ -127,9 +132,18 @@ export default function RackDetailPage({ params }: { params: { id: string } }) {
                 </div>
               </div>
             </div>
-             <Button variant="outline">
-                <Phone className="mr-2 h-4 w-4" /> Contact Owner
-            </Button>
+            <div className="flex gap-2 w-full sm:w-auto">
+                 <Button variant="outline" className="flex-1 sm:flex-none">
+                    <Phone className="mr-2 h-4 w-4" /> Contact
+                </Button>
+                {whatsappUrl && (
+                    <Button asChild className="flex-1 sm:flex-none bg-green-500 hover:bg-green-600">
+                        <Link href={whatsappUrl} target="_blank">
+                            <MessageSquare className="mr-2 h-4 w-4" /> WhatsApp
+                        </Link>
+                    </Button>
+                )}
+            </div>
           </div>
           
           <Button size="lg" className="w-full" disabled={rack.status === 'Rented'}>
