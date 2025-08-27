@@ -1,11 +1,65 @@
-<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_2086_2)">
-<path d="M75.5 0H24.5C11 0 0 11 0 24.5V75.5C0 89 11 100 24.5 100H75.5C89 100 100 89 100 75.5V24.5C100 11 89 0 75.5 0Z" fill="#1E40AF"/>
-<path d="M73 43.8333C73 50.8333 70.3333 56.6667 66.1667 61C62 65.3333 56.1667 68 49.5 68H32.8333V29H49.5C56.1667 29 62 31.6667 66.1667 36.1667C70.3333 40.5 73 43.8333 73 43.8333ZM51 84L79.3333 54.5V29H84V84H73.3333V60.5L52.8333 84H51Z" fill="#60A5FA"/>
+<svg width="256" height="256" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1_2)">
+<rect width="200" height="200" fill="#22272E"/>
+<g transform="translate(20, 20) scale(0.8)">
+<path d="M40 0 L160 20 L160 180 L40 160 Z" fill="#34D399"/>
+
+<!-- Solar Panels -->
+<rect x="65" y="15" width="30" height="10" fill="#A3E635" rx="2"/>
+<rect x="105" y="19" width="30" height="10" fill="#A3E635" rx="2"/>
+
+<!-- Row 1 -->
+<circle cx="58" cy="50" r="10" fill="url(#gradBlue)"/>
+<circle cx="88" cy="52" r="10" fill="url(#gradLime)"/>
+<circle cx="118" cy="54" r="10" fill="url(#gradBlue)"/>
+<g transform="translate(135, 42)">
+    <rect width="45" height="7" fill="#F97316" rx="1.5"/>
+    <circle cx="4" cy="3.5" r="1.5" fill="#93C5FD"/>
+    <rect y="10" width="45" height="7" fill="#F97316" rx="1.5"/>
+    <circle cx="4" cy="13.5" r="1.5" fill="#93C5FD"/>
+    <rect y="20" width="45" height="7" fill="#F97316" rx="1.5"/>
+    <circle cx="4" cy="23.5" r="1.5" fill="#93C5FD"/>
+</g>
+
+<!-- Row 2 -->
+<circle cx="56" cy="94" r="10" fill="url(#gradBlue)"/>
+<circle cx="114" cy="100" r="10" fill="url(#gradLime)"/>
+<rect x="70" y="89" width="40" height="18" fill="black" rx="9"/>
+<text x="90" y="102" fill="white" font-family="Inter, sans-serif" font-size="9" font-weight="bold" text-anchor="middle">RackUp</text>
+<g transform="translate(132, 86)">
+    <rect width="45" height="7" fill="#F97316" rx="1.5"/>
+    <circle cx="4" cy="3.5" r="1.5" fill="#93C5FD"/>
+    <rect y="10" width="45" height="7" fill="#F97316" rx="1.5"/>
+    <circle cx="4" cy="13.5" r="1.5" fill="#93C5FD"/>
+    <rect y="20" width="45" height="7" fill="#F97316" rx="1.5"/>
+    <circle cx="4" cy="23.5" r="1.5" fill="#93C5FD"/>
+</g>
+
+<!-- Row 3 -->
+<circle cx="54" cy="140" r="10" fill="url(#gradBlue)"/>
+<circle cx="84" cy="144" r="10" fill="url(#gradLime)"/>
+<circle cx="114" cy="148" r="10" fill="url(#gradBlue)"/>
+<g transform="translate(130, 134)">
+    <rect width="45" height="7" fill="#F97316" rx="1.5"/>
+    <circle cx="4" cy="3.5" r="1.5" fill="#93C5FD"/>
+    <rect y="10" width="45" height="7" fill="#F97316" rx="1.5"/>
+    <circle cx="4" cy="13.5" r="1.5" fill="#93C5FD"/>
+    <rect y="20" width="45" height="7" fill="#F97316" rx="1.5"/>
+    <circle cx="4" cy="23.5" r="1.5" fill="#93C5FD"/>
+</g>
+</g>
 </g>
 <defs>
-<clipPath id="clip0_2086_2">
-<rect width="100" height="100" fill="white"/>
+<linearGradient id="gradBlue" x1="0" y1="0" x2="1" y2="1">
+  <stop offset="0%" stop-color="#93C5FD"/>
+  <stop offset="100%" stop-color="#3B82F6"/>
+</linearGradient>
+<linearGradient id="gradLime" x1="0" y1="0" x2="1" y2="1">
+  <stop offset="0%" stop-color="#A3E635"/>
+  <stop offset="100%" stop-color="#65A30D"/>
+</linearGradient>
+<clipPath id="clip0_1_2">
+<rect width="200" height="200" rx="24" fill="white"/>
 </clipPath>
 </defs>
 </svg>
