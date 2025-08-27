@@ -33,14 +33,14 @@ export function Header() {
           <span className="text-xl font-bold">RackUp</span>
         </Link>
         
-        <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+        <nav className="hidden md:flex items-center gap-4 text-sm font-medium">
              {navLinks.map(link => (
                  <Link 
                     key={link.href} 
                     href={link.href} 
                     className={cn(
-                        "transition-colors hover:text-foreground capitalize",
-                        pathname === link.href ? "text-foreground" : "text-foreground/60"
+                        "transition-all hover:text-primary capitalize px-3 py-2",
+                        pathname === link.href ? "bg-muted text-primary rounded-md" : "text-muted-foreground"
                     )}
                  >
                     {link.label}
@@ -87,8 +87,8 @@ export function Header() {
                                 key={link.href} 
                                 href={link.href} 
                                 className={cn(
-                                    "transition-colors hover:text-foreground capitalize",
-                                    pathname === link.href ? "text-foreground" : "text-foreground/60"
+                                    "transition-all hover:text-primary capitalize p-2",
+                                    pathname === link.href ? "bg-muted text-primary rounded-md" : "text-muted-foreground"
                                 )}
                             >
                                 {link.label}
