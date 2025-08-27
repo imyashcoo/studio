@@ -39,7 +39,13 @@ export default function DashboardPage() {
   }, [user, loading, router]);
 
   if (loading || !user) {
-    return <div>Loading...</div>
+    // Render nothing or a loading spinner while checking auth state.
+    // This prevents any dashboard content from flashing for unauthenticated users.
+    return (
+      <div className="flex items-center justify-center h-full">
+        <div>Loading...</div>
+      </div>
+    );
   }
   
   // This is mock data logic. In a real app, you would fetch this from your backend.

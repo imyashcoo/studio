@@ -22,7 +22,23 @@ export function RackCard({ rack }: RackCardProps) {
   const router = useRouter();
   const { toast } = useToast();
 
-  const handleViewDetails = () => {
+  const handleInteraction = (e: React.MouseEvent, action: () => void) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (user) {
+      action();
+    } else {
+      toast({
+        title: 'Please Log In',
+        description: 'You need to be logged in to perform this action.',
+        variant: 'destructive'
+      });
+      router.push('/login');
+    }
+  };
+
+  const handleCardClick = () => {
     if (user) {
       router.push(`/racks/${rack.id}`);
     } else {
@@ -36,9 +52,11 @@ export function RackCard({ rack }: RackCardProps) {
   };
 
   return (
-    <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1 group/rackcard rounded-lg border-border/60">
+    <Card 
+      className="overflow-hidden h-full flex flex-col transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1 group/rackcard rounded-lg border-border/60 cursor-pointer"
+      onClick={handleCardClick}
+    >
       <div className="relative">
-        <div onClick={handleViewDetails} className="cursor-pointer">
           <Image
             src={rack.photos[0]}
             alt={rack.title}
@@ -47,12 +65,21 @@ export function RackCard({ rack }: RackCardProps) {
             className="w-full h-48 object-cover group-hover/rackcard:scale-105 transition-transform duration-300"
             data-ai-hint="retail shelf"
           />
-        </div>
         <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover/rackcard:opacity-100 transition-opacity duration-300">
-           <Button variant="ghost" size="icon" className="h-9 w-9 bg-white/80 hover:bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-200">
+           <Button 
+              variant="ghost" 
+              size="icon" 
+              className="h-9 w-9 bg-white/80 hover:bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-200"
+              onClick={(e) => handleInteraction(e, () => console.log('Favourite clicked'))}
+            >
               <Heart className="h-4 w-4 text-gray-700" />
            </Button>
-            <Button variant="ghost" size="icon" className="h-9 w-9 bg-white/80 hover:bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-200">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="h-9 w-9 bg-white/80 hover:bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-200"
+              onClick={(e) => handleInteraction(e, () => console.log('Share clicked'))}
+            >
               <Share2 className="h-4 w-4 text-gray-700" />
            </Button>
         </div>
@@ -60,16 +87,22 @@ export function RackCard({ rack }: RackCardProps) {
       </div>
       <CardContent className="p-4 flex-grow flex flex-col bg-card">
         <h3 className="font-semibold text-base leading-tight truncate group-hover/rackcard:text-primary">{rack.title}</h3>
-        <a 
-          href={googleMapsUrl}
-          target="_blank"
-          rel="noopener noreferrer"
+        <div 
           className="mt-1 flex items-center text-xs text-muted-foreground hover:text-primary"
-          onClick={(e) => e.stopPropagation()} // Prevents card click handler
+          onClick={(e) => {
+            if (!user) {
+              e.preventDefault();
+              e.stopPropagation();
+              handleInteraction(e, () => {});
+            } else {
+              e.stopPropagation(); // Allow link to open if user is logged in
+              window.open(googleMapsUrl, '_blank', 'noopener,noreferrer');
+            }
+          }}
         >
           <MapPin className="h-3 w-3 mr-1.5 flex-shrink-0" />
           <span className="truncate">{rack.location}</span>
-        </a>
+        </div>
         <div className="mt-4 flex-grow space-y-3 text-sm">
           <div className="flex items-center text-muted-foreground">
             <IndianRupee className="h-4 w-4 mr-2 text-primary/80" />
@@ -83,7 +116,10 @@ export function RackCard({ rack }: RackCardProps) {
             </span>
           </div>
         </div>
-        <Button className="w-full mt-4" variant="secondary" onClick={handleViewDetails}>View Details</Button>
+        <Button className="w-full mt-4" variant="secondary" onClick={(e) => {
+            e.stopPropagation(); // Prevent card's onClick from firing twice
+            handleCardClick();
+        }}>View Details</Button>
       </CardContent>
     </Card>
   );

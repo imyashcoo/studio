@@ -75,7 +75,11 @@ export default function ListRackPage() {
   }
   
   if (loading || !user) {
-    return <div>Loading...</div>;
+     return (
+      <div className="flex items-center justify-center h-full">
+        <div>Loading...</div>
+      </div>
+    );
   }
 
   return (

@@ -1,6 +1,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
 
 export function Footer() {
     return (
@@ -41,10 +42,10 @@ export function Footer() {
             <div className="mt-8 pt-8 border-t flex flex-col sm:flex-row justify-between items-center text-muted-foreground gap-4">
                 <p className="text-center sm:text-left">&copy; {new Date().getFullYear()} RackUp Pvt. Ltd. All rights reserved.</p>
                 <div className="flex space-x-4">
-                    <Link href="#" className="hover:text-primary"><Image src="https://placehold.co/24x24/ffffff/000000.png?text=f" alt="Facebook" width={24} height={24} className="rounded-full" data-ai-hint="facebook icon" /></Link>
-                    <Link href="#" className="hover:text-primary"><Image src="https://placehold.co/24x24/ffffff/000000.png?text=t" alt="Twitter" width={24} height={24} className="rounded-full" data-ai-hint="twitter icon" /></Link>
-                    <Link href="#" className="hover:text-primary"><Image src="https://placehold.co/24x24/ffffff/000000.png?text=in" alt="LinkedIn" width={24} height={24} className="rounded-full" data-ai-hint="linkedin icon" /></Link>
-                    <Link href="#" className="hover:text-primary"><Image src="https://placehold.co/24x24/ffffff/000000.png?text=ig" alt="Instagram" width={24} height={24} className="rounded-full" data-ai-hint="instagram icon" /></Link>
+                    <Link href="#" className="hover:text-primary"><Facebook className="h-5 w-5" /></Link>
+                    <Link href="#" className="hover:text-primary"><Twitter className="h-5 w-5" /></Link>
+                    <Link href="#" className="hover:text-primary"><Linkedin className="h-5 w-5" /></Link>
+                    <Link href="#" className="hover:text-primary"><Instagram className="h-5 w-5" /></Link>
                 </div>
             </div>
         </div>

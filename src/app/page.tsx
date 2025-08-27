@@ -3,18 +3,12 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight, Star, DollarSign, Sparkles, Handshake } from 'lucide-react';
+import { ArrowRight, DollarSign, Sparkles, Handshake } from 'lucide-react';
 import { mockRacks } from '@/lib/data';
 import { RackCard } from '@/components/RackCard';
-import { SellerCard } from '@/components/SellerCard';
 import { TestimonialCard } from '@/components/TestimonialCard';
 
 export default function LandingPage() {
-  const popularLocalities = ["Gomti Nagar", "Indira Nagar", "Mahanagar", "Chinhat"];
-  const recommendedSellers = [
-    { name: "Sidharth Singh", status: "Rack Up Pro", location: "Gomti Nagar", avatar: "https://placehold.co/100x100.png", dataAiHint: "person avatar" },
-    { name: "Aradhana Pandey", status: "Rack Up Edge", location: "Mahanagar", avatar: "https://placehold.co/100x100.png", dataAiHint: "person avatar" }
-  ];
    const testimonials = [
     {
       name: "Rishabh Arora",
