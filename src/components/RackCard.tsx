@@ -39,7 +39,7 @@ export function RackCard({ rack }: RackCardProps) {
         </div>
         <Badge className="absolute bottom-3 left-3 bg-black/50 text-white backdrop-blur-sm">{rack.category}</Badge>
       </div>
-      <CardContent className="p-4 flex-grow flex flex-col bg-white">
+      <CardContent className="p-4 flex-grow flex flex-col bg-card">
         <h3 className="font-semibold text-lg leading-tight truncate group-hover/rackcard:text-primary">{rack.title}</h3>
         <a 
           href={googleMapsUrl}

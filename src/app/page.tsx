@@ -82,7 +82,7 @@ export default function LandingPage() {
             <h2 className="text-3xl font-bold mb-8 text-center">Popular Localities</h2>
             <div className="flex flex-wrap justify-center gap-4">
               {popularLocalities.map(loc => (
-                <Button key={loc} variant="outline" className="rounded-full px-6 bg-white">{loc}</Button>
+                <Button key={loc} variant="outline" className="rounded-full px-6 bg-card">{loc}</Button>
               ))}
             </div>
           </div>
