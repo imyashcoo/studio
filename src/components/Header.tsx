@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/lib/auth';
 import { useRouter, usePathname } from 'next/navigation';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, ShieldCheck } from 'lucide-react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
@@ -83,6 +83,10 @@ export function Header() {
                     </Button>
                 </SheetTrigger>
                 <SheetContent side="right">
+                    <SheetHeader className="sr-only">
+                      <SheetTitle>Mobile Menu</SheetTitle>
+                      <SheetDescription>Navigation links for mobile users.</SheetDescription>
+                    </SheetHeader>
                     <nav className="grid gap-6 text-lg font-medium mt-8">
                         <Link href="/" className="flex items-center gap-2 text-lg font-semibold mb-4">
                             <Image src="/logo.svg" alt="RackUp Logo" width={32} height={32} className="h-8 w-auto"/>
