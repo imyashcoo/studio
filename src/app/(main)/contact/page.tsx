@@ -31,6 +31,9 @@ const contactFormSchema = z.object({
 
 const premiumInquirySchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters long.'),
+  email: z.string().email('Please enter a valid email address.'),
+  phone: z.string().regex(/^\+?[1-9]\d{1,14}$/, 'Please enter a valid phone number.'),
+  designation: z.string().min(2, 'Designation is required.'),
   website: z.string().url('Please enter a valid website URL.'),
   goal: z.string().min(10, 'Goal must be at least 10 characters long.'),
   location: z.string().min(2, 'Location must be at least 2 characters.'),
@@ -54,7 +57,7 @@ function ContactUsPageInternal() {
 
   const premiumForm = useForm<PremiumInquiryValues>({
       resolver: zodResolver(premiumInquirySchema),
-      defaultValues: { name: '', website: '', goal: '', location: '', message: '' },
+      defaultValues: { name: '', email: '', phone: '', designation: '', website: '', goal: '', location: '', message: '' },
   });
 
   function onContactSubmit(data: ContactFormValues) {
@@ -100,21 +103,36 @@ function ContactUsPageInternal() {
 
   const PremiumInquiryForm = () => (
       <Form {...premiumForm}>
-        <form onSubmit={premiumForm.handleSubmit(onPremiumSubmit)} className="space-y-8">
-            <FormField control={premiumForm.control} name="name" render={({ field }) => (
-                <FormItem><FormLabel>Full Name</FormLabel><FormControl><Input placeholder="John Doe" {...field} /></FormControl><FormMessage /></FormItem>
-            )}/>
+        <form onSubmit={premiumForm.handleSubmit(onPremiumSubmit)} className="space-y-6">
+             <div className="grid md:grid-cols-2 gap-6">
+                <FormField control={premiumForm.control} name="name" render={({ field }) => (
+                    <FormItem><FormLabel>Full Name</FormLabel><FormControl><Input placeholder="John Doe" {...field} /></FormControl><FormMessage /></FormItem>
+                )}/>
+                 <FormField control={premiumForm.control} name="designation" render={({ field }) => (
+                    <FormItem><FormLabel>Designation</FormLabel><FormControl><Input placeholder="e.g., Marketing Head" {...field} /></FormControl><FormMessage /></FormItem>
+                )}/>
+             </div>
+              <div className="grid md:grid-cols-2 gap-6">
+                <FormField control={premiumForm.control} name="email" render={({ field }) => (
+                    <FormItem><FormLabel>Email Address</FormLabel><FormControl><Input placeholder="m@example.com" {...field} /></FormControl><FormMessage /></FormItem>
+                )}/>
+                <FormField control={premiumForm.control} name="phone" render={({ field }) => (
+                    <FormItem><FormLabel>Phone Number</FormLabel><FormControl><Input placeholder="+91 12345 67890" {...field} /></FormControl><FormMessage /></FormItem>
+                )}/>
+            </div>
             <FormField control={premiumForm.control} name="website" render={({ field }) => (
                 <FormItem><FormLabel>Company Website</FormLabel><FormControl><Input placeholder="https://example.com" {...field} /></FormControl><FormMessage /></FormItem>
             )}/>
-            <FormField control={premiumForm.control} name="location" render={({ field }) => (
-                <FormItem><FormLabel>Target Location(s)</FormLabel><FormControl><Input placeholder="e.g., Delhi, Mumbai" {...field} /></FormControl><FormMessage /></FormItem>
-            )}/>
-            <FormField control={premiumForm.control} name="goal" render={({ field }) => (
-                <FormItem><FormLabel>Business Goal</FormLabel><FormControl><Textarea placeholder="What do you want to achieve with RackUp Premium?" className="min-h-24" {...field} /></FormControl><FormMessage /></FormItem>
-            )}/>
+            <div className="grid md:grid-cols-2 gap-6">
+                <FormField control={premiumForm.control} name="location" render={({ field }) => (
+                    <FormItem><FormLabel>Target Location(s)</FormLabel><FormControl><Input placeholder="e.g., Delhi, Mumbai" {...field} /></FormControl><FormMessage /></FormItem>
+                )}/>
+                 <FormField control={premiumForm.control} name="goal" render={({ field }) => (
+                    <FormItem><FormLabel>Business Goal</FormLabel><FormControl><Input placeholder="e.g., Increase sales by 20%" {...field} /></FormControl><FormMessage /></FormItem>
+                )}/>
+            </div>
              <FormField control={premiumForm.control} name="message" render={({ field }) => (
-                <FormItem><FormLabel>Message</FormLabel><FormControl><Textarea placeholder="Tell us more about your brand and products." className="min-h-32" {...field} /></FormControl><FormMessage /></FormItem>
+                <FormItem><FormLabel>Message</FormLabel><FormControl><Textarea placeholder="Tell us more about your brand and products." className="min-h-24" {...field} /></FormControl><FormMessage /></FormItem>
             )}/>
             <Button type="submit">Submit Inquiry</Button>
         </form>
@@ -124,7 +142,7 @@ function ContactUsPageInternal() {
 
   return (
     <div className="container mx-auto px-4 py-12 md:py-20 space-y-16">
-      <Card className="max-w-2xl mx-auto">
+      <Card className="max-w-3xl mx-auto">
         <CardHeader>
           <CardTitle className="text-3xl font-bold tracking-tight">
             {isPremiumInquiry ? 'Premium Service Inquiry' : 'Contact Us'}

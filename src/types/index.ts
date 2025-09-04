@@ -54,6 +54,9 @@ export type Bid = {
 export type PremiumInquiry = {
   id: string;
   name: string;
+  email: string;
+  phone: string;
+  designation: string;
   website: string;
   goal: string;
   location: string;

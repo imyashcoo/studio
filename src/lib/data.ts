@@ -196,6 +196,9 @@ export const mockPremiumInquiries: PremiumInquiry[] = [
   {
     id: 'inquiry-1',
     name: 'Cool Startup Inc.',
+    email: 'contact@coolstartup.com',
+    phone: '+1 555-123-4567',
+    designation: 'CEO',
     website: 'https://coolstartup.com',
     goal: 'Increase brand awareness in Tier 1 cities.',
     location: 'Mumbai, Bangalore',
