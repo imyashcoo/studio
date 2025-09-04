@@ -5,7 +5,7 @@ import { ReactNode, useEffect } from 'react';
 import { useAuth } from '@/lib/auth';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { Home, Users, Package, ShieldCheck } from 'lucide-react';
+import { Home, Users, Package, ShieldCheck, Mail } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -33,6 +33,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     { href: '/admin', label: 'Dashboard', icon: Home },
     { href: '/admin/listings', label: 'Listings', icon: Package },
     { href: '/admin/users', label: 'Users', icon: Users },
+    { href: '/admin/premium-inquiries', label: 'Premium Inquiries', icon: Mail },
   ];
 
   return (

@@ -1,4 +1,5 @@
-import type { Rack, User, Bid } from '@/types';
+
+import type { Rack, User, Bid, PremiumInquiry } from '@/types';
 
 // In a real app, this would be a real database.
 // This is exported so other parts of the mock app can access it.
@@ -189,6 +190,17 @@ export const mockBids: Bid[] = [
         tenure: 4,
         status: 'Pending',
     }
+];
+
+export const mockPremiumInquiries: PremiumInquiry[] = [
+  {
+    id: 'inquiry-1',
+    name: 'Cool Startup Inc.',
+    website: 'https://coolstartup.com',
+    goal: 'Increase brand awareness in Tier 1 cities.',
+    location: 'Mumbai, Bangalore',
+    message: 'We are launching a new line of D2C snacks and want to test the market.'
+  }
 ];
 
 

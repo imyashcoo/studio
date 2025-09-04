@@ -1,5 +1,6 @@
 
 
+
 export type Rack = {
   id: string;
   title: string;
@@ -48,4 +49,13 @@ export type Bid = {
   amount: number; // Proposed weekly rent
   tenure: number; // in weeks
   status: 'Pending' | 'Accepted' | 'Rejected';
+};
+
+export type PremiumInquiry = {
+  id: string;
+  name: string;
+  website: string;
+  goal: string;
+  location: string;
+  message: string;
 };

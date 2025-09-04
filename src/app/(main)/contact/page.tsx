@@ -1,3 +1,4 @@
+
 'use client';
 
 import { z } from 'zod';
@@ -17,6 +18,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import React from 'react';
+import { mockPremiumInquiries } from '@/lib/data';
 
 const contactFormSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters long.'),
@@ -25,94 +29,114 @@ const contactFormSchema = z.object({
   query: z.string().min(10, 'Query must be at least 10 characters long.'),
 });
 
-type ContactFormValues = z.infer<typeof contactFormSchema>;
+const premiumInquirySchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters long.'),
+  website: z.string().url('Please enter a valid website URL.'),
+  goal: z.string().min(10, 'Goal must be at least 10 characters long.'),
+  location: z.string().min(2, 'Location must be at least 2 characters.'),
+  message: z.string().min(10, 'Message must be at least 10 characters long.'),
+});
 
-export default function ContactUsPage() {
+
+type ContactFormValues = z.infer<typeof contactFormSchema>;
+type PremiumInquiryValues = z.infer<typeof premiumInquirySchema>;
+
+
+function ContactUsPageInternal() {
+  const searchParams = useSearchParams();
+  const isPremiumInquiry = searchParams.get('subject') === 'Premium';
   const { toast } = useToast();
-  const form = useForm<ContactFormValues>({
+
+  const contactForm = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
-    defaultValues: {
-      name: '',
-      phone: '',
-      email: '',
-      query: '',
-    },
+    defaultValues: { name: '', phone: '', email: '', query: '' },
   });
 
-  function onSubmit(data: ContactFormValues) {
+  const premiumForm = useForm<PremiumInquiryValues>({
+      resolver: zodResolver(premiumInquirySchema),
+      defaultValues: { name: '', website: '', goal: '', location: '', message: '' },
+  });
+
+  function onContactSubmit(data: ContactFormValues) {
     console.log(data);
     toast({
       title: 'Query Submitted!',
       description: 'Thank you for contacting us. We will get back to you shortly.',
     });
-    form.reset();
+    contactForm.reset();
   }
+
+  function onPremiumSubmit(data: PremiumInquiryValues) {
+    const newInquiry = { id: `inquiry-${Date.now()}`, ...data };
+    mockPremiumInquiries.push(newInquiry);
+    console.log('New Premium Inquiry:', newInquiry);
+    toast({
+      title: 'Sales Inquiry Submitted!',
+      description: 'Thank you for your interest in Premium. Our team will get back to you shortly.',
+    });
+    premiumForm.reset();
+  }
+
+
+  const GeneralContactForm = () => (
+     <Form {...contactForm}>
+        <form onSubmit={contactForm.handleSubmit(onContactSubmit)} className="space-y-8">
+            <FormField control={contactForm.control} name="name" render={({ field }) => (
+                <FormItem><FormLabel>Full Name</FormLabel><FormControl><Input placeholder="John Doe" {...field} /></FormControl><FormMessage /></FormItem>
+            )}/>
+            <FormField control={contactForm.control} name="email" render={({ field }) => (
+                <FormItem><FormLabel>Email Address</FormLabel><FormControl><Input placeholder="m@example.com" {...field} /></FormControl><FormMessage /></FormItem>
+            )}/>
+            <FormField control={contactForm.control} name="phone" render={({ field }) => (
+                <FormItem><FormLabel>Phone Number</FormLabel><FormControl><Input placeholder="+91 12345 67890" {...field} /></FormControl><FormMessage /></FormItem>
+            )}/>
+            <FormField control={contactForm.control} name="query" render={({ field }) => (
+                <FormItem><FormLabel>Your Message</FormLabel><FormControl><Textarea placeholder="Please describe your query in detail..." className="min-h-32" {...field} /></FormControl><FormMessage /></FormItem>
+            )}/>
+            <Button type="submit">Submit</Button>
+        </form>
+    </Form>
+  );
+
+  const PremiumInquiryForm = () => (
+      <Form {...premiumForm}>
+        <form onSubmit={premiumForm.handleSubmit(onPremiumSubmit)} className="space-y-8">
+            <FormField control={premiumForm.control} name="name" render={({ field }) => (
+                <FormItem><FormLabel>Full Name</FormLabel><FormControl><Input placeholder="John Doe" {...field} /></FormControl><FormMessage /></FormItem>
+            )}/>
+            <FormField control={premiumForm.control} name="website" render={({ field }) => (
+                <FormItem><FormLabel>Company Website</FormLabel><FormControl><Input placeholder="https://example.com" {...field} /></FormControl><FormMessage /></FormItem>
+            )}/>
+            <FormField control={premiumForm.control} name="location" render={({ field }) => (
+                <FormItem><FormLabel>Target Location(s)</FormLabel><FormControl><Input placeholder="e.g., Delhi, Mumbai" {...field} /></FormControl><FormMessage /></FormItem>
+            )}/>
+            <FormField control={premiumForm.control} name="goal" render={({ field }) => (
+                <FormItem><FormLabel>Business Goal</FormLabel><FormControl><Textarea placeholder="What do you want to achieve with RackUp Premium?" className="min-h-24" {...field} /></FormControl><FormMessage /></FormItem>
+            )}/>
+             <FormField control={premiumForm.control} name="message" render={({ field }) => (
+                <FormItem><FormLabel>Message</FormLabel><FormControl><Textarea placeholder="Tell us more about your brand and products." className="min-h-32" {...field} /></FormControl><FormMessage /></FormItem>
+            )}/>
+            <Button type="submit">Submit Inquiry</Button>
+        </form>
+    </Form>
+  );
+
 
   return (
     <div className="container mx-auto px-4 py-12 md:py-20 space-y-16">
       <Card className="max-w-2xl mx-auto">
         <CardHeader>
-          <CardTitle className="text-3xl font-bold tracking-tight">Contact Us</CardTitle>
-          <CardDescription>Have a question or feedback? Fill out the form below to get in touch with our team.</CardDescription>
+          <CardTitle className="text-3xl font-bold tracking-tight">
+            {isPremiumInquiry ? 'Premium Service Inquiry' : 'Contact Us'}
+          </CardTitle>
+          <CardDescription>
+            {isPremiumInquiry 
+                ? 'Tell us about your brand and we will get back to you with a tailored proposal.' 
+                : 'Have a question or feedback? Fill out the form below to get in touch.'}
+          </CardDescription>
         </CardHeader>
         <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Full Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="John Doe" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-               <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email Address</FormLabel>
-                    <FormControl>
-                      <Input placeholder="m@example.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="phone"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Phone Number</FormLabel>
-                    <FormControl>
-                      <Input placeholder="+91 12345 67890" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="query"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Your Message</FormLabel>
-                    <FormControl>
-                      <Textarea placeholder="Please describe your query in detail..." className="min-h-32" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button type="submit">Submit</Button>
-            </form>
-          </Form>
+            {isPremiumInquiry ? <PremiumInquiryForm /> : <GeneralContactForm />}
         </CardContent>
       </Card>
       
@@ -131,4 +155,13 @@ export default function ContactUsPage() {
         </section>
     </div>
   );
+}
+
+
+export default function ContactUsPage() {
+    return (
+        <React.Suspense fallback={<div>Loading...</div>}>
+            <ContactUsPageInternal />
+        </React.Suspense>
+    )
 }
