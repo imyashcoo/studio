@@ -27,11 +27,11 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import type { Bid } from '@/types';
 
-export default function RackDetailPage({ params }: { params: { id: string } }) {
+export default function RackDetailPage({ params: { id } }: { params: { id: string } }) {
   const { user } = useAuth();
   const router = useRouter();
   const { toast } = useToast();
-  const rack = mockRacks.find(r => r.id === params.id);
+  const rack = mockRacks.find(r => r.id === id);
 
   const [bidAmount, setBidAmount] = useState<number | string>('');
   const [bidTenure, setBidTenure] = useState<number | string>('');
