@@ -60,5 +60,7 @@ export type PremiumInquiry = {
   website: string;
   goal: string;
   location: string;
+  budget: string;
+  numberOfRacks: number;
   message: string;
 };

@@ -26,8 +26,10 @@ export default function AdminPremiumInquiriesPage() {
                                 <TableRow>
                                     <TableHead>Contact Person</TableHead>
                                     <TableHead>Company</TableHead>
-                                    <TableHead>Target Location</TableHead>
+                                    <TableHead>Location</TableHead>
                                     <TableHead>Goal</TableHead>
+                                    <TableHead>Budget (INR)</TableHead>
+                                    <TableHead>Racks Needed</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -46,6 +48,8 @@ export default function AdminPremiumInquiriesPage() {
                                         </TableCell>
                                         <TableCell>{inquiry.location}</TableCell>
                                         <TableCell>{inquiry.goal}</TableCell>
+                                        <TableCell>{inquiry.budget}</TableCell>
+                                        <TableCell>{inquiry.numberOfRacks}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>

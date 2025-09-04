@@ -37,6 +37,8 @@ const premiumInquirySchema = z.object({
   website: z.string().url('Please enter a valid website URL.'),
   goal: z.string().min(10, 'Goal must be at least 10 characters long.'),
   location: z.string().min(2, 'Location must be at least 2 characters.'),
+  budget: z.string().min(2, 'Budget is required.'),
+  numberOfRacks: z.coerce.number().int().positive('Please enter a valid number of racks.'),
   message: z.string().min(10, 'Message must be at least 10 characters long.'),
 });
 
@@ -57,7 +59,7 @@ function ContactUsPageInternal() {
 
   const premiumForm = useForm<PremiumInquiryValues>({
       resolver: zodResolver(premiumInquirySchema),
-      defaultValues: { name: '', email: '', phone: '', designation: '', website: '', goal: '', location: '', message: '' },
+      defaultValues: { name: '', email: '', phone: '', designation: '', website: '', goal: '', location: '', budget: '', message: '' },
   });
 
   function onContactSubmit(data: ContactFormValues) {
@@ -129,6 +131,14 @@ function ContactUsPageInternal() {
                 )}/>
                  <FormField control={premiumForm.control} name="goal" render={({ field }) => (
                     <FormItem><FormLabel>Business Goal</FormLabel><FormControl><Input placeholder="e.g., Increase sales by 20%" {...field} /></FormControl><FormMessage /></FormItem>
+                )}/>
+            </div>
+             <div className="grid md:grid-cols-2 gap-6">
+                <FormField control={premiumForm.control} name="budget" render={({ field }) => (
+                    <FormItem><FormLabel>Tentative Budget (₹)</FormLabel><FormControl><Input placeholder="e.g., 50,000" {...field} /></FormControl><FormMessage /></FormItem>
+                )}/>
+                 <FormField control={premiumForm.control} name="numberOfRacks" render={({ field }) => (
+                    <FormItem><FormLabel>Number of Racks</FormLabel><FormControl><Input type="number" placeholder="e.g., 10" {...field} /></FormControl><FormMessage /></FormItem>
                 )}/>
             </div>
              <FormField control={premiumForm.control} name="message" render={({ field }) => (

@@ -202,6 +202,8 @@ export const mockPremiumInquiries: PremiumInquiry[] = [
     website: 'https://coolstartup.com',
     goal: 'Increase brand awareness in Tier 1 cities.',
     location: 'Mumbai, Bangalore',
+    budget: '2,00,000',
+    numberOfRacks: 20,
     message: 'We are launching a new line of D2C snacks and want to test the market.'
   }
 ];
