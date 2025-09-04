@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import {
@@ -20,14 +21,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { mockRacks } from '@/lib/data';
-import { Edit, Trash2 } from 'lucide-react';
+import { mockRacks, mockBids } from '@/lib/data';
+import { Edit, Trash2, Check, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { useAuth } from '@/lib/auth';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, useMemo } from 'react';
-import type { Rack } from '@/types';
+import type { Rack, Bid } from '@/types';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -51,6 +52,7 @@ export default function DashboardPage() {
 
   // State to manage racks data locally
   const [allRacks, setAllRacks] = useState<Rack[]>(mockRacks);
+  const [allBids, setAllBids] = useState<Bid[]>(mockBids);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [selectedRack, setSelectedRack] = useState<Rack | null>(null);
   const [newStatus, setNewStatus] = useState<Rack['status']>('Available');
@@ -66,6 +68,11 @@ export default function DashboardPage() {
     if (!user) return [];
     return allRacks.filter(rack => rack.owner.id === user.uid);
   }, [allRacks, user]);
+
+  const receivedBids = useMemo(() => {
+      if(!user) return [];
+      return allBids.filter(bid => bid.ownerId === user.uid && bid.status === 'Pending');
+  }, [allBids, user]);
 
   const rentedRacks = useMemo(() => {
     if (!user) return [];
@@ -106,6 +113,14 @@ export default function DashboardPage() {
     setIsEditDialogOpen(false);
     setSelectedRack(null);
   };
+  
+  const handleBidResponse = (bidId: string, response: 'Accepted' | 'Rejected') => {
+      setAllBids(prevBids => prevBids.map(bid => bid.id === bidId ? { ...bid, status: response } : bid));
+      toast({
+          title: `Bid ${response}`,
+          description: `You have ${response.toLowerCase()} the bid.`
+      })
+  }
 
 
   if (loading || !user) {
@@ -123,8 +138,9 @@ export default function DashboardPage() {
           <p className="text-muted-foreground">Manage your listings, rentals, and profile.</p>
         </div>
         <Tabs defaultValue="my-listings" className="w-full">
-          <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 h-auto sm:h-10">
+          <TabsList className="grid w-full grid-cols-1 sm:grid-cols-4 h-auto sm:h-10">
             <TabsTrigger value="my-listings">My Listings</TabsTrigger>
+            <TabsTrigger value="bids-received">Bids Received</TabsTrigger>
             <TabsTrigger value="my-rentals">My Rentals</TabsTrigger>
             <TabsTrigger value="profile">Profile Settings</TabsTrigger>
           </TabsList>
@@ -203,6 +219,48 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
           </TabsContent>
+          <TabsContent value="bids-received">
+            <Card>
+                <CardHeader>
+                    <CardTitle>Bids Received</CardTitle>
+                    <CardDescription>Review and respond to bids on your racks.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div className="overflow-x-auto">
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Rack Title</TableHead>
+                                    <TableHead>Bidder</TableHead>
+                                    <TableHead>Offer (₹/wk)</TableHead>
+                                    <TableHead>Tenure (wks)</TableHead>
+                                    <TableHead className="text-right">Actions</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {receivedBids.map(bid => (
+                                    <TableRow key={bid.id}>
+                                        <TableCell className="font-medium whitespace-nowrap">{bid.rackTitle}</TableCell>
+                                        <TableCell>{bid.bidder.name}</TableCell>
+                                        <TableCell>₹{bid.amount.toLocaleString('en-IN')}</TableCell>
+                                        <TableCell>{bid.tenure}</TableCell>
+                                        <TableCell className="text-right flex gap-2 justify-end">
+                                            <Button size="sm" className="bg-green-600 hover:bg-green-700" onClick={() => handleBidResponse(bid.id, 'Accepted')}>
+                                                <Check className="h-4 w-4 mr-1"/> Accept
+                                            </Button>
+                                             <Button size="sm" variant="destructive" onClick={() => handleBidResponse(bid.id, 'Rejected')}>
+                                                <X className="h-4 w-4 mr-1"/> Deny
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </div>
+                     {receivedBids.length === 0 && <p className="text-center text-muted-foreground mt-4">No pending bids.</p>}
+                </CardContent>
+            </Card>
+          </TabsContent>
           <TabsContent value="my-rentals">
             <Card>
               <CardHeader>
@@ -226,6 +284,7 @@ export default function DashboardPage() {
                   </div>
                 ))}
                 </div>
+                 {rentedRacks.length === 0 && <p className="text-center text-muted-foreground">You have not rented any racks yet.</p>}
               </CardContent>
             </Card>
           </TabsContent>

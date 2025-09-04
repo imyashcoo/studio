@@ -1,8 +1,10 @@
 
-import { mockRacks, mockUserDatabase } from '@/lib/data';
-import { notFound } from 'next/navigation';
+'use client';
+
+import { mockRacks, mockUserDatabase, mockBids } from '@/lib/data';
+import { notFound, useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -13,24 +15,82 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { Separator } from '@/components/ui/separator';
-import { MapPin, Users, IndianRupee, Calendar, TrendingUp, Phone, MessageSquare } from 'lucide-react';
+import { MapPin, Users, IndianRupee, Calendar, TrendingUp, Phone, MessageSquare, Gavel } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { RackCard } from '@/components/RackCard';
+import { useAuth } from '@/lib/auth';
+import { useState } from 'react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { useToast } from '@/hooks/use-toast';
+import type { Bid } from '@/types';
 
 export default function RackDetailPage({ params }: { params: { id: string } }) {
+  const { user } = useAuth();
+  const router = useRouter();
+  const { toast } = useToast();
   const rack = mockRacks.find(r => r.id === params.id);
+
+  const [bidAmount, setBidAmount] = useState<number | string>('');
+  const [bidTenure, setBidTenure] = useState<number | string>('');
 
   if (!rack) {
     notFound();
   }
+  
+  const isOwner = user?.uid === rack.owner.id;
 
   const owner = mockUserDatabase[rack.owner.id];
   const whatsappUrl = owner?.whatsapp ? `https://wa.me/${owner.whatsapp.replace(/[^0-9]/g, '')}` : '';
   const phoneUrl = owner?.mobile ? `tel:${owner.mobile}` : '';
 
   const similarRacks = mockRacks.filter(r => r.category === rack.category && r.id !== rack.id).slice(0, 3);
+  
+  const handleBidSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!user) {
+      toast({
+        title: 'Please log in to place a bid.',
+        variant: 'destructive',
+        action: <Button onClick={() => router.push('/login')}>Login</Button>
+      });
+      return;
+    }
+    
+     if (isOwner) {
+      toast({
+        title: "You cannot bid on your own rack.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // In a real app, this would be an API call.
+    const newBid: Bid = {
+        id: `bid-${Date.now()}`,
+        rackId: rack.id,
+        rackTitle: rack.title,
+        bidder: { id: user.uid, name: user.name || 'Anonymous' },
+        ownerId: rack.owner.id,
+        amount: Number(bidAmount),
+        tenure: Number(bidTenure),
+        status: 'Pending'
+    };
+
+    mockBids.push(newBid);
+
+    toast({
+      title: 'Bid Placed Successfully!',
+      description: `Your bid of ₹${bidAmount}/week for ${bidTenure} weeks has been submitted.`,
+    });
+    console.log('New Bid:', newBid);
+    console.log('All Bids:', mockBids);
+
+    setBidAmount('');
+    setBidTenure('');
+  };
 
 
   return (
@@ -123,6 +183,44 @@ export default function RackDetailPage({ params }: { params: { id: string } }) {
             </div>
             
             <Separator />
+            
+             {rack.status === 'Available' && !isOwner && (
+              <Card>
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2"><Gavel/> Place Your Bid</CardTitle>
+                    <CardDescription>Propose your rental terms to the rack owner.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <form onSubmit={handleBidSubmit} className="space-y-4">
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                                <Label htmlFor="bid-amount">Your Rent Offer (₹/week)</Label>
+                                <Input 
+                                    id="bid-amount" 
+                                    type="number" 
+                                    placeholder={String(rack.weeklyRent)} 
+                                    value={bidAmount}
+                                    onChange={(e) => setBidAmount(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="bid-tenure">Tenure (weeks)</Label>
+                                <Input 
+                                    id="bid-tenure" 
+                                    type="number" 
+                                    placeholder="e.g., 4" 
+                                    value={bidTenure}
+                                    onChange={(e) => setBidTenure(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <Button type="submit" className="w-full">Submit Bid</Button>
+                    </form>
+                </CardContent>
+              </Card>
+            )}
 
             <Card>
                 <CardHeader>

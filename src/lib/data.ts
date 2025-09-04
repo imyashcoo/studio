@@ -1,4 +1,4 @@
-import type { Rack, User } from '@/types';
+import type { Rack, User, Bid } from '@/types';
 
 // In a real app, this would be a real database.
 // This is exported so other parts of the mock app can access it.
@@ -175,6 +175,20 @@ export const mockRacks: Rack[] = [
     status: 'Rented',
     category: 'Books, Stationery & Gifts',
   },
+];
+
+
+export const mockBids: Bid[] = [
+    {
+        id: 'bid-1',
+        rackId: 'rack-1',
+        rackTitle: 'Prime Aisle End-Cap in High-Traffic Supermarket',
+        bidder: { id: 'user-2', name: 'Jane Smith' },
+        ownerId: 'user-1',
+        amount: 2400,
+        tenure: 4,
+        status: 'Pending',
+    }
 ];
 
 

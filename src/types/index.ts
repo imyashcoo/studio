@@ -36,3 +36,16 @@ export type User = {
 };
 
 
+export type Bid = {
+  id: string;
+  rackId: string;
+  rackTitle: string;
+  bidder: {
+    id: string;
+    name: string;
+  };
+  ownerId: string;
+  amount: number; // Proposed weekly rent
+  tenure: number; // in weeks
+  status: 'Pending' | 'Accepted' | 'Rejected';
+};
