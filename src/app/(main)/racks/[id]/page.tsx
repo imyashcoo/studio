@@ -27,7 +27,8 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import type { Bid } from '@/types';
 
-export default function RackDetailPage({ params: { id } }: { params: { id: string } }) {
+export default function RackDetailPage({ params }: { params: { id: string } }) {
+  const { id } = params;
   const { user } = useAuth();
   const router = useRouter();
   const { toast } = useToast();
