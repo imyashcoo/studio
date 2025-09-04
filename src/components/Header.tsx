@@ -23,6 +23,7 @@ export function Header() {
   const navLinks = [
       { href: "/explore", label: "explore racks" },
       { href: "/list-rack", label: "list racks" },
+      { href: "/premium", label: "premium" },
   ];
 
   return (
